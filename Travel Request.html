@@ -1,10 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Travel Request</title>
-</head>
-<body>
+    <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+    <script type="text/javascript">
+        emailjs.init(WsXu7cybLQY-rK9fD);
 
+        function sendForm() {
+            emailjs.sendForm('csutiltnotify@gmail.com', 'My Defualt Template', '#travelRequestForm')
+                .then(function(response) {
+                    console.log('Email sent!', response);
+                    alert('Form submitted successfully!');
+                }, function(error) {
+                    console.log('Email send failed...', error);
+                    alert('Form submission failed.');
+                });
+        }
+    </script>
+</head>
+
+<body>
+    <form id="travelRequestForm" onsubmit="event.preventDefault(); sendForm();">
+        <!-- Traveler Information -->
+        <label for="travelerName">Traveler Name:</label>
+        <input type="text" id="travelerName" name="traveler_name" required><br><br>
+
+        <label for="travelDate">Date:</label>
+        <input type="date" id="travelDate" name="travel_date"><br><br>
+
+        <!-- Conference Information -->
+        <!-- ... Add other fields as per the PDF content ... -->
+
+        <input type="submit" value="Submit">
+    </form>
 </body>
+
 </html>
