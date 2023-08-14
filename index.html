@@ -1,88 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conference / Travel Request Form</title>
+    <title>Colorado State University Landing Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #F4F4F4;
-            color: #333;
+            background-color: #004537; /* CSU Green */
+            color: #DAB965; /* CSU Gold */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
-        h2, h3 {
-            color: #4D704E; /* CSU Green */
+
+        .logo {
+            width: 200px;
+            margin-bottom: 30px;
         }
-        .section {
-            margin-bottom: 20px;
-            background-color: #FFF;
-            padding: 15px;
+
+        .nav-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-button {
+            background-color: #DAB965;
+            color: #004537;
+            padding: 10px 20px;
+            border: none;
             border-radius: 5px;
-            border: 1px solid #CBA052; /* CSU Gold */
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
         }
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
-        input[type="text"], input[type="date"], input[type="number"], textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #CBA052; /* CSU Gold */
-            border-radius: 5px;
-        }
-        input[type="checkbox"] {
-            margin-right: 10px;
+
+        .nav-button:hover {
+            background-color: #B5954C;
         }
     </style>
 </head>
+
 <body>
+    <!-- Replace with the actual CSU logo -->
+    <img src="C:\Users\star1150\Documents\GitHub\Stark-Stacks.github.io\csu_logo.png" alt="CSU Logo" class="logo">
 
-<h2>Conference / Travel Request Form</h2>
-
-<form action="submit_form.php" method="post">
-    <div class="section">
-        <label>Traveler: <input type="text" name="traveler"></label>
-        <label>Date: <input type="date" name="travel_date"></label>
+    <div class="nav-buttons">
+        <a href="link_to_page_1.html" class="nav-button">Page 1</a>
+        <a href="link_to_page_2.html" class="nav-button">Page 2</a>
+        <a href="link_to_page_3.html" class="nav-button">Page 3</a>
+        <!-- Add more buttons as needed -->
     </div>
-
-    <h3>Conference Information</h3>
-    <div class="section">
-        <label>Location (city and state): <input type="text" name="location"></label>
-        <label>Date(s) of Attendance: <input type="date" name="attendance_date"></label>
-        <label>Reason: <textarea name="reason"></textarea></label>
-        <label>Cost of Conference: <input type="number" name="conference_cost"></label>
-        <label>Registration Link or Phone Number: <input type="text" name="registration_link"></label>
-        <label>Number of Meals Provided at Conference: <input type="number" name="meals_provided"></label>
-    </div>
-
-    <h3>Hotel Information</h3>
-    <div class="section">
-        <label>Hotel Name: <input type="text" name="hotel_name"></label>
-        <label>Location (city and state): <input type="text" name="hotel_location"></label>
-        <label>Number of Nights: <input type="number" name="nights"></label>
-        <label>Cost Per Night: <input type="number" name="cost_per_night"></label>
-    </div>
-
-    <h3>Transportation Information</h3>
-    <div class="section">
-        <label>Flight Dates: <input type="date" name="flight_dates"></label>
-        <label>Estimated Cost of Flight: <input type="number" name="flight_cost"></label>
-        <label>Shuttle from Fort Collins to DIA: <input type="checkbox" name="shuttle_fort_collins" value="Yes"> Yes</label>
-        <label>Shuttle from DIA to Fort Collins: <input type="checkbox" name="shuttle_dia" value="Yes"> Yes</label>
-        <label>Mileage between DIA & FC: <input type="text" name="mileage"></label>
-        <label>Shuttle/taxi to and from hotel: <input type="checkbox" name="shuttle_hotel" value="Yes"> Yes</label>
-        <label>Special Transportation Requests (e.g., Frequent flyer miles): <textarea name="transport_requests"></textarea></label>
-    </div>
-
-    <h3>Signatures</h3>
-    <div class="section">
-        <label>Signature of Traveler: <input type="text" name="traveler_signature"></label>
-        <label>Date: <input type="date" name="signature_date"></label>
-        <label>Approver Signature: <input type="text" name="approver_signature"></label>
-        <label>Date: <input type="date" name="approver_date"></label>
-    </div>
-    <input type="submit" value="Submit">
-</form>
-
 </body>
+
 </html>
