@@ -258,6 +258,25 @@
             transform: scale(1);
             box-shadow: inset 0 0 5px #333;
         }
+        #otherExpensesSection {
+        margin: 20px 0;
+        padding: 10px;
+        border: 1px solid #DAB965; /* CSU Gold */
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.1); /* Light transparent background */
+        }
+
+        #otherExpenses {
+            width: calc(100% - 20px);  /* Adjusting for 10px padding on left and right */
+            padding: 10px;
+            border: 1px solid #DAB965;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2); /* Light transparent background for textarea */
+
+        }
+        *, *:before, *:after {
+        box-sizing: border-box;
+        }
 }
 
     </style>
@@ -333,6 +352,14 @@
 
         <label for="grandTotal" class = "total-label">Grand Total:</label>
         <span id="grandTotal">$0.00</span><br><br>
+
+        <!-- Other Expenses Section -->
+        <div id="otherExpensesSection">
+        <h2>Other Expenses</h2>
+        <p>Please describe any additional expenses in detail:</p>
+        <textarea id="otherExpenses" rows="5" cols="50" placeholder="Describe your expenses here..."></textarea>
+        </div>
+
 
         <!-- File Upload -->
         <h3>Attach Additional Files</h3>
