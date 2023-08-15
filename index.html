@@ -7,17 +7,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Colorado State University - TILT Financial Services Portal</title>
     <style>
-        body {
-        font-family: Arial, sans-serif;
-        color: #DAB965; /* CSU Gold */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        background: linear-gradient(45deg, #004537, #DAB965);
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        body {
+            font-family: Arial, sans-serif;
+            color: #DAB965; /* CSU Gold */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #004537, #DAB965);
+            background-size: 200% 200%; /* make it 2x to be able to animate */
+            animation: gradientAnimation 15s infinite; /* animate over 15 seconds in a loop */
+        }
         .overlay {
         background-color: rgba(0, 69, 55, 0.7); /* Semi-transparent CSU Green */
         padding: 30px;
@@ -25,6 +57,7 @@
         text-align: center;
         width: 80%;
         max-width: 600px;
+        animation: fadeIn 1s ease-out;
         }
         .portal-title, h1 {
         margin: 20px 0;
@@ -33,6 +66,7 @@
         .logo {
             width: 200px;
             margin-bottom: 30px;
+            animation: bounce 1s;
         }
 
         .nav-buttons {
@@ -52,12 +86,16 @@
             cursor: pointer;
             text-decoration: none;
             font-size: 16px;
+            transition: transform 0.3s, background-color 0.3s;
         }
 
         .nav-button:hover {
             background-color: #B5954C;
+            transform: scale(1.05);
         }
-
+        .nav-button:active {
+            transform: scale(0.95);
+        }
         .portal-title {
             font-size: 2em;
             margin: 20px 0;

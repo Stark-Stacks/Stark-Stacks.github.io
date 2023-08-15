@@ -18,20 +18,326 @@
                     alert('Form submission failed.');
                 });
         }
+        function calculateGrandTotal() {
+            let transportationCost = parseFloat(document.getElementById('totalTransportationCost').textContent.replace("$", "")) || 0;
+            let lodgingCost = parseFloat(document.getElementById('totalLodgingCost').textContent.replace("$", "")) || 0;
+            let perDiemCost = parseFloat(document.getElementById('totalPerDiemCost').textContent.replace("$", "")) || 0;
+
+            console.log("Transportation:", transportationCost);
+            console.log("Lodging:", lodgingCost);
+            console.log("Per Diem:", perDiemCost);
+
+            let grandTotal = transportationCost + lodgingCost + perDiemCost;
+
+            document.getElementById('summaryTransportationCost').textContent = "$" + transportationCost.toFixed(2);
+            document.getElementById('summaryLodgingCost').textContent = "$" + lodgingCost.toFixed(2);
+            document.getElementById('summaryPerDiemCost').textContent = "$" + perDiemCost.toFixed(2);
+            document.getElementById('grandTotal').textContent = "$" + grandTotal.toFixed(2);
+        }
+        function calculateMileageCost() {
+            let mileage = document.getElementById('mileage').value;
+            mileage = parseFloat(mileage) || 0;
+            let cost = mileage * 0.52;
+            document.getElementById('mileageCost').textContent = "$" + cost.toFixed(2);
+            calculateTotalTransportationCost();
+            calculateGrandTotal();
+        }
+        function displayAmount(inputId, displayId) {
+            let amount = parseFloat(document.getElementById(inputId).value) || 0;
+            document.getElementById(displayId).textContent = "$" + amount.toFixed(2);
+            calculateTotalTransportationCost();
+            calculateGrandTotal();
+        }
+
+        function calculateTotalLodgingCost() {
+           let nights = document.getElementById('nights').value;
+           let costPerNight = document.getElementById('costPerNight').value;
+
+           // Convert to float, defaulting to 0 if conversion fails
+           nights = parseFloat(nights) || 0;
+           costPerNight = parseFloat(costPerNight) || 0;
+
+           let totalCost = nights * costPerNight;
+           document.getElementById('totalLodgingCost').textContent = "$" + totalCost.toFixed(2);
+           calculateGrandTotal();
+        }
+
+        function calculateTotalTransportationCost() {
+            let mileageCost = parseFloat(document.getElementById('mileageCost').textContent.replace("$", "")) || 0;
+            let shuttleTaxi = parseFloat(document.getElementById('shuttleTaxiCost').textContent.replace("$", "")) || 0;
+            let parking = parseFloat(document.getElementById('parkingCost').textContent.replace("$", "")) || 0;
+            let flightCost = parseFloat(document.getElementById('flightCostDisplay').textContent.replace("$", "")) || 0;
+
+            let total = mileageCost + shuttleTaxi + parking + flightCost;
+            document.getElementById('totalTransportationCost').textContent = "$" + total.toFixed(2);
+            calculateGrandTotal();
+        }
+        function calculateTotalPerDiem() {
+           const tableRows = document.querySelectorAll('#perDiemTableContainer tbody tr');
+           let totalPerDiem = 0;
+
+           tableRows.forEach(row => {
+               const inputs = row.querySelectorAll('input');
+               inputs.forEach(input => {
+                   totalPerDiem += parseFloat(input.value) || 0;
+               });
+           });
+
+           document.getElementById('totalPerDiemCost').textContent = "$" + totalPerDiem.toFixed(2);
+           calculateGrandTotal();
+        }
+        function generatePerDiemTable() {
+            const startDate = new Date(document.getElementById('tripBeginDate').value);
+            const endDate = new Date(document.getElementById('tripEndDate').value);
+            const tableContainer = document.getElementById('perDiemTableContainer');
+
+            // Clear any existing table
+            tableContainer.innerHTML = '';
+
+            // Calculate difference in days
+            const diffInTime = endDate.getTime() - startDate.getTime();
+            const diffInDays = diffInTime / (1000 * 3600 * 24) + 1;
+
+            if (diffInDays <= 0) {
+                alert('End date must be after start date.');
+                return;
+            }
+
+            let tableHTML = '<table border="1"><thead><tr><th>Date</th><th>Breakfast ($20)</th><th>Lunch ($20)</th><th>Dinner ($25)</th><th>Incidentals ($5)</th></tr></thead><tbody>';
+
+            for (let i = 0; i < diffInDays; i++) {
+                const currentDay = new Date(startDate);
+                currentDay.setDate(currentDay.getDate() + i);
+
+                let breakfastValue = (i === 0 || i === diffInDays - 1) ? Math.ceil(0.75 * 20) : 20;
+                let lunchValue = (i === 0 || i === diffInDays - 1) ? Math.ceil(0.75 * 20) : 20;
+                let dinnerValue = (i === 0 || i === diffInDays - 1) ? Math.ceil(0.75 * 25) : 25;
+                let incidentalValue = (i === 0 || i === diffInDays - 1) ? Math.ceil(0.75 * 5) : 5;
+
+                tableHTML += `<tr>
+                    <td>${currentDay.toLocaleDateString()}</td>
+                    <td><input type="number" value="${breakfastValue}"></td>
+                    <td><input type="number" value="${lunchValue}"></td>
+                    <td><input type="number" value="${dinnerValue}"></td>
+                    <td><input type="number" value="${incidentalValue}"></td>
+                </tr>`;
+            }
+
+            tableHTML += '</tbody></table>';
+            tableContainer.innerHTML = tableHTML;
+
+            // Add event listener to calculate total per diem when any input value changes
+            const inputs = document.querySelectorAll('#perDiemTableContainer input');
+            inputs.forEach(input => {
+                input.addEventListener('input', calculateTotalPerDiem);
+            });
+
+            // Calculate initial total per diem
+            calculateTotalPerDiem();
+        }
+
+        let allFiles = [];
+
+        function addFilesToList() {
+            const files = document.getElementById('fileInput').files;
+            for (let i = 0; i < files.length; i++) {
+                allFiles.push(files[i]);
+            }
+            displayFiles();
+
+            fileInput.value = ""; // Clear the input
+        }
+
+        function displayFiles() {
+            const fileListDiv = document.getElementById('fileList');
+            fileListDiv.innerHTML = '';
+            allFiles.forEach((file, index) => {
+                fileListDiv.innerHTML += `<div>${file.name} <button onclick="removeFile(${index})">Remove</button></div>`;
+            });
+        }
+
+        function removeFile(index) {
+            allFiles.splice(index, 1);
+            displayFiles();
+        }
+
     </script>
+    <style>
+        /* Reset some default browser styles */
+        body, h3, form {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #4d704e;
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ccb67c' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        /* Container for the form */
+        form {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.5s ease-in-out;
+            animation: slideIn 0.5s forwards;
+        }
+
+        /* Styling for form headings */
+        h3 {
+            padding: 1rem 0;
+            border-bottom: 1px solid #e4e4e4;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Styling for labels and input fields */
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"], input[type="number"], input[type="date"], input[type="file"] {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+        /* Targeting all span elements that display totals */
+        span[id$="Cost"], span[id$="Display"], span[id$="Total"] {
+            font-weight: bold;
+        }
+        font-weight: bold;
+        }
+        /* Styling for total labels */
+        .total-label {
+            font-weight: bold;
+        }
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Input field focus animation */
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        input[type="file"]:focus {
+            border-color: #007BFF;
+            box-shadow: 0 0 5px rgba(0,123,255,0.5);
+        }
+
+        /* Button hover and click animation */
+        input[type="submit"]:hover {
+            background-color: #555;
+            transform: scale(1.05);
+        }
+
+        input[type="submit"]:active {
+            transform: scale(1);
+            box-shadow: inset 0 0 5px #333;
+        }
+}
+
+    </style>
 </head>
 
 <body>
-    <form id="travelRequestForm" onsubmit="event.preventDefault(); sendForm();">
+    <form id="travelRequestForm" onsubmit="event.preventDefault(); sendForm();" enctype="multipart/form-data">
         <!-- Traveler Information -->
+        <h3>Traveler Information</h3>
         <label for="travelerName">Traveler Name:</label>
         <input type="text" id="travelerName" name="traveler_name" required><br><br>
 
-        <label for="travelDate">Date:</label>
-        <input type="date" id="travelDate" name="travel_date"><br><br>
+        <label for="tripBeginDate">Trip Begin Date:</label>
+        <input type="date" id="tripBeginDate" name="trip_begin_date" required><br><br>
 
-        <!-- Conference Information -->
-        <!-- ... Add other fields as per the PDF content ... -->
+        <label for="tripEndDate">Trip End Date:</label>
+        <input type="date" id="tripEndDate" name="trip_end_date" required oninput="generatePerDiemTable();"><br><br>
+
+        <!-- Transportation Information -->
+        <h3>Transportation Information</h3>
+        <label for="mileage">Mileage:</label>
+        <input type="text" id="mileage" name="mileage" oninput="calculateMileageCost();">
+        <span id="mileageCost">$0.00</span><br><br>
+
+        <label for="shuttleTaxi">Shuttle/Taxi:</label>
+        <input type="text" id="shuttleTaxi" name="shuttle_taxi" oninput="displayAmount('shuttleTaxi', 'shuttleTaxiCost');">
+        <span id="shuttleTaxiCost">$0.00</span><br><br>
+
+        <label for="parking">Parking:</label>
+        <input type="text" id="parking" name="parking" oninput="displayAmount('parking', 'parkingCost');">
+        <span id="parkingCost">$0.00</span><br><br>
+
+        <label for="flightCost">Estimated Cost of Flight:</label>
+        <input type="text" id="flightCost" name="flight_cost" oninput="displayAmount('flightCost', 'flightCostDisplay');">
+        <span id="flightCostDisplay">$0.00</span><br><br>
+
+<label for="totalTransportationCost" class="total-label">Total Transportation Cost:</label>        <span id="totalTransportationCost">$0.00</span><br><br>
+
+
+
+
+        <h3>Lodging Information</h3>
+        <label for="hotelName">Hotel Name:</label>
+        <input type="text" id="hotelName" name="hotel_name"><br><br>
+
+        <label for="hotelLocation">Hotel Location (City & State):</label>
+        <input type="text" id="hotelLocation" name="hotel_location"><br><br>
+
+         <label for="nights">Number of Nights:</label>
+        <input type="number" id="nights" name="nights" oninput="calculateTotalLodgingCost();"><br><br>
+
+        <label for="costPerNight">Cost per Night:</label>
+        <input type="text" id="costPerNight" name="cost_per_night" oninput="calculateTotalLodgingCost();"><br><br>
+
+        <label for="totalLodgingCost" class="total-label">Total Lodging Cost:</label>
+        <span id="totalLodgingCost">$0.00</span><br><br>
+
+        <h3>Per Diem</h3>
+
+        <div id="perDiemTableContainer"></div>
+        <label for="totalPerDiemCost" class="total-label">Total Per Diem Cost:</label>
+        <span id="totalPerDiemCost">$0.00</span><br><br>
+
+        <h3>Summary</h3>
+        <label for="summaryTransportationCost" class = "total-label">Total Transportation Cost:</label>
+        <span id="summaryTransportationCost">$0.00</span><br><br>
+
+        <label for="summaryLodgingCost" class = "total-label">Total Lodging Cost:</label>
+        <span id="summaryLodgingCost">$0.00</span><br><br>
+
+        <label for="summaryPerDiemCost" class = "total-label">Total Per Diem Cost:</label>
+        <span id="summaryPerDiemCost">$0.00</span><br><br>
+
+        <label for="grandTotal" class = "total-label">Grand Total:</label>
+        <span id="grandTotal">$0.00</span><br><br>
+
+        <!-- File Upload -->
+        <h3>Attach Additional Files</h3>
+        <input type="file" name="attachment" id="fileInput" accept=".pdf,.doc,.docx" onchange="addFilesToList()">
+        <div id="fileList"></div>
 
         <input type="submit" value="Submit">
     </form>
