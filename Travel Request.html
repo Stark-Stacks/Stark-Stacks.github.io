@@ -4,11 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Travel Request</title>
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6Ldj5qonAAAAAPDfl7ifEVcyKFo5WFe0RAUXKwpY"></script>
     <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
     <script type="text/javascript">
         emailjs.init("WsXu7cybLQY-rK9fD");
-
         function sendForm() {
+            const faxField = document.getElementById('fax_number').value;
+
+            if(faxField) {
+                console.log("Error - fax field");
+                return false; // Don't submit the form
+            }
+
             emailjs.sendForm('service_js0nckp', 'template_pw36kjl', '#travelRequestForm')
                 .then(function(response) {
                     console.log('Email sent!', response);
@@ -18,6 +25,19 @@
                     alert('Form submission failed.');
                 });
         }
+        function onClick(e) {
+            e.preventDefault();
+            grecaptcha.enterprise.ready(async () => {
+                const token = await grecaptcha.enterprise.execute('6Ldj5qonAAAAAPDfl7ifEVcyKFo5WFe0RAUXKwpY', {action: 'LOGIN'});
+                if (token) {
+                    // If we have a token, proceed with sending the form
+                    sendForm();
+                } else {
+                    alert("Please verify you're not a robot");
+                }
+            });
+        }
+
         function calculateGrandTotal() {
             let transportationCost = parseFloat(document.getElementById('totalTransportationCost').textContent.replace("$", "")) || 0;
             let lodgingCost = parseFloat(document.getElementById('totalLodgingCost').textContent.replace("$", "")) || 0;
@@ -337,6 +357,8 @@
     <input type="radio" id="inState" name="tripType" value="inState" onclick="toggleDestinationType('inState')"> In State<br>
     <input type="radio" id="outOfState" name="tripType" value="outOfState" onclick="toggleDestinationType('outOfState')"> Out of State<br>
     <input type="radio" id="international" name="tripType" value="international" onclick="toggleDestinationType('international')"> International<br>
+    <input type="text" name="fax_number" id="fax_number" value="" style="display: none;">
+
     <!-- New Towns Dropdown (Initially hidden) -->
     <div id="coloradoCities" style="display: none;">
         <label for="city">Select City:</label>
@@ -718,6 +740,6 @@
     <input type="file" name="attachment" id="fileInput" accept=".pdf,.doc,.docx" onchange="addFilesToList()">
     <div id="fileList"></div>
 
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" onclick="onClick(event)">
 </form>
 </html>
