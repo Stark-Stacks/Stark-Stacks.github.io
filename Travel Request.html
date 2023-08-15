@@ -7,15 +7,39 @@
     <script src="https://www.google.com/recaptcha/enterprise.js?render=6Ldj5qonAAAAAPDfl7ifEVcyKFo5WFe0RAUXKwpY"></script>
     <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
     <script type="text/javascript">
+        function areRequiredFieldsFilled() {
+            const travelerName = document.getElementById('travelerName').value;
+            const tripBeginDate = document.getElementById('tripBeginDate').value;
+            const tripEndDate = document.getElementById('tripEndDate').value;
+
+            if (!travelerName) {
+                return false; // the field is empty
+            }
+            if (!tripBeginDate) {
+                return false; // the field is empty
+            }
+            if (!tripEndDate) {
+                return false; // the field is empty
+            }
+
+            return true; // all required fields have values
+        }
         emailjs.init("WsXu7cybLQY-rK9fD");
         function sendForm() {
             const faxField = document.getElementById('fax_number').value;
 
             if(faxField) {
-                console.log("Error - fax field");
-                return false; // Don't submit the form
+                console.log("Error - fax field filled out");
+                return false;
             }
 
+            // Check required fields:
+            if (!areRequiredFieldsFilled()) {
+                alert("Please fill out all required fields.");
+                return false;
+            }
+
+            // Send email:
             emailjs.sendForm('service_js0nckp', 'template_pw36kjl', '#travelRequestForm')
                 .then(function(response) {
                     console.log('Email sent!', response);
