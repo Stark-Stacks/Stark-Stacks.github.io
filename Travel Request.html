@@ -3,246 +3,35 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Travel Request</title>
-    <script src="https://www.google.com/recaptcha/enterprise.js?render=6Ldj5qonAAAAAPDfl7ifEVcyKFo5WFe0RAUXKwpY"></script>
-    <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+    <title>HR Position Details</title>
     <script type="text/javascript">
-        function areRequiredFieldsFilled() {
-            const travelerName = document.getElementById('travelerName').value;
-            const tripBeginDate = document.getElementById('tripBeginDate').value;
-            const tripEndDate = document.getElementById('tripEndDate').value;
+        function addPositionRow() {
+            const tableBody = document.getElementById('positionTableBody');
+            const row = document.createElement('tr');
 
-            if (!travelerName) {
-                return false; // the field is empty
-            }
-            if (!tripBeginDate) {
-                return false; // the field is empty
-            }
-            if (!tripEndDate) {
-                return false; // the field is empty
+            for (let i = 0; i < 10; i++) {
+                const cell = document.createElement('td');
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.name = `position_${tableBody.rows.length + 1}_field_${i + 1}`;
+                cell.appendChild(input);
+                row.appendChild(cell);
             }
 
-            return true; // all required fields have values
+            tableBody.appendChild(row);
         }
-        emailjs.init("WsXu7cybLQY-rK9fD");
+
         function sendForm() {
-            const faxField = document.getElementById('fax_number').value;
+            // Perform validation and form submission logic here
 
-            if(faxField) {
-                console.log("Error - fax field filled out");
-                return false;
-            }
-
-            // Check required fields:
-            if (!areRequiredFieldsFilled()) {
-                alert("Please fill out all required fields.");
-                return false;
-            }
-
-            // Send email:
-            emailjs.sendForm('service_js0nckp', 'template_pw36kjl', '#travelRequestForm')
-                .then(function(response) {
-                    console.log('Email sent!', response);
-                    alert('Form submitted successfully!');
-                }, function(error) {
-                    console.log('Email send failed...', error);
-                    alert('Form submission failed.');
-                });
+            // Example alert for demonstration purposes
+            alert('Form submitted successfully!');
         }
+
         function onClick(e) {
             e.preventDefault();
-            grecaptcha.enterprise.ready(async () => {
-                const token = await grecaptcha.enterprise.execute('6Ldj5qonAAAAAPDfl7ifEVcyKFo5WFe0RAUXKwpY', {action: 'LOGIN'});
-                if (token) {
-                    // If we have a token, proceed with sending the form
-                    sendForm();
-                } else {
-                    alert("Please verify you're not a robot");
-                }
-            });
+            sendForm();
         }
-
-        function calculateGrandTotal() {
-            let transportationCost = parseFloat(document.getElementById('totalTransportationCost').textContent.replace("$", "")) || 0;
-            let lodgingCost = parseFloat(document.getElementById('totalLodgingCost').textContent.replace("$", "")) || 0;
-            let perDiemCost = parseFloat(document.getElementById('totalPerDiemCost').textContent.replace("$", "")) || 0;
-
-            console.log("Transportation:", transportationCost);
-            console.log("Lodging:", lodgingCost);
-            console.log("Per Diem:", perDiemCost);
-
-            let grandTotal = transportationCost + lodgingCost + perDiemCost;
-
-            document.getElementById('summaryTransportationCost').textContent = "$" + transportationCost.toFixed(2);
-            document.getElementById('summaryLodgingCost').textContent = "$" + lodgingCost.toFixed(2);
-            document.getElementById('summaryPerDiemCost').textContent = "$" + perDiemCost.toFixed(2);
-            document.getElementById('grandTotal').textContent = "$" + grandTotal.toFixed(2);
-        }
-        function calculateMileageCost() {
-            let mileage = document.getElementById('mileage').value;
-            mileage = parseFloat(mileage) || 0;
-            let cost = mileage * 0.52;
-            document.getElementById('mileageCost').textContent = "$" + cost.toFixed(2);
-            calculateTotalTransportationCost();
-            calculateGrandTotal();
-        }
-        function displayAmount(inputId, displayId) {
-            let amount = parseFloat(document.getElementById(inputId).value) || 0;
-            document.getElementById(displayId).textContent = "$" + amount.toFixed(2);
-            calculateTotalTransportationCost();
-            calculateGrandTotal();
-        }
-
-        function calculateTotalLodgingCost() {
-           let nights = document.getElementById('nights').value;
-           let costPerNight = document.getElementById('costPerNight').value;
-
-           // Convert to float, defaulting to 0 if conversion fails
-           nights = parseFloat(nights) || 0;
-           costPerNight = parseFloat(costPerNight) || 0;
-
-           let totalCost = nights * costPerNight;
-           document.getElementById('totalLodgingCost').textContent = "$" + totalCost.toFixed(2);
-           calculateGrandTotal();
-        }
-
-        function calculateTotalTransportationCost() {
-            let mileageCost = parseFloat(document.getElementById('mileageCost').textContent.replace("$", "")) || 0;
-            let shuttleTaxi = parseFloat(document.getElementById('shuttleTaxiCost').textContent.replace("$", "")) || 0;
-            let parking = parseFloat(document.getElementById('parkingCost').textContent.replace("$", "")) || 0;
-            let flightCost = parseFloat(document.getElementById('flightCostDisplay').textContent.replace("$", "")) || 0;
-
-            let total = mileageCost + shuttleTaxi + parking + flightCost;
-            document.getElementById('totalTransportationCost').textContent = "$" + total.toFixed(2);
-            calculateGrandTotal();
-        }
-        function calculateTotalPerDiem() {
-           const tableRows = document.querySelectorAll('#perDiemTableContainer tbody tr');
-           let totalPerDiem = 0;
-
-           tableRows.forEach(row => {
-               const inputs = row.querySelectorAll('input');
-               inputs.forEach(input => {
-                   totalPerDiem += parseFloat(input.value) || 0;
-               });
-           });
-
-           document.getElementById('totalPerDiemCost').textContent = "$" + totalPerDiem.toFixed(2);
-           calculateGrandTotal();
-        }
-        function generatePerDiemTable() {
-            const startDate = new Date(document.getElementById('tripBeginDate').value);
-            const endDate = new Date(document.getElementById('tripEndDate').value);
-            const tableContainer = document.getElementById('perDiemTableContainer');
-
-            // Clear any existing table
-            tableContainer.innerHTML = '';
-
-            // Calculate difference in days
-            const diffInTime = endDate.getTime() - startDate.getTime();
-            const diffInDays = diffInTime / (1000 * 3600 * 24) + 1;
-
-            if (diffInDays <= 0) {
-                alert('End date must be after start date.');
-                return;
-            }
-
-            let tableHTML = '<table border="1"><thead><tr><th>Date</th><th>Breakfast ($20)</th><th>Lunch ($20)</th><th>Dinner ($25)</th><th>Incidentals ($5)</th></tr></thead><tbody>';
-
-            for (let i = 0; i < diffInDays; i++) {
-                const currentDay = new Date(startDate);
-                currentDay.setDate(currentDay.getDate() + i);
-
-                let breakfastValue = (i === 0 || i === diffInDays - 1) ? Math.ceil(0.75 * 20) : 20;
-                let lunchValue = (i === 0 || i === diffInDays - 1) ? Math.ceil(0.75 * 20) : 20;
-                let dinnerValue = (i === 0 || i === diffInDays - 1) ? Math.ceil(0.75 * 25) : 25;
-                let incidentalValue = (i === 0 || i === diffInDays - 1) ? Math.ceil(0.75 * 5) : 5;
-
-                tableHTML += `<tr>
-                <td>${currentDay.toLocaleDateString()}</td>
-                <td><input type="number" value="${breakfastValue}"></td>
-                <td><input type="number" value="${lunchValue}"></td>
-                <td><input type="number" value="${dinnerValue}"></td>
-                <td><input type="number" value="${incidentalValue}"></td>
-            </tr>`;
-            }
-
-            tableHTML += '</tbody></table>';
-            tableContainer.innerHTML = tableHTML;
-
-            // Add event listener to calculate total per diem when any input value changes
-            const inputs = document.querySelectorAll('#perDiemTableContainer input');
-            inputs.forEach(input => {
-                input.addEventListener('input', calculateTotalPerDiem);
-            });
-
-            // Calculate initial total per diem
-            calculateTotalPerDiem();
-        }
-
-        let allFiles = [];
-
-        function addFilesToList() {
-            const files = document.getElementById('fileInput').files;
-            for (let i = 0; i < files.length; i++) {
-                allFiles.push(files[i]);
-            }
-            displayFiles();
-
-            fileInput.value = ""; // Clear the input
-        }
-
-        function displayFiles() {
-            const fileListDiv = document.getElementById('fileList');
-            fileListDiv.innerHTML = '';
-            allFiles.forEach((file, index) => {
-                fileListDiv.innerHTML += `<div>${file.name} <button onclick="removeFile(${index})">Remove</button></div>`;
-            });
-        }
-
-        function removeFile(index) {
-            allFiles.splice(index, 1);
-            displayFiles();
-        }
-
-        function handleTravelTypeChange() {
-            const selectedType = document.querySelector('input[name="travelType"]:checked').value;
-            const townsDropdown = document.getElementById('city');
-            if (selectedType === 'inState') {
-                townsDropdown.style.display = 'block';
-            } else {
-                townsDropdown.style.display = 'none';
-            }
-        }
-
-        function toggleDestinationType(tripType) {
-            const coloradoCitiesDiv = document.getElementById('coloradoCities');
-            const usStatesDiv = document.getElementById('usStates');
-            const internationalDiv = document.getElementById('internationalSection');
-
-            // Initially hide all
-            coloradoCitiesDiv.style.display = 'none';
-            usStatesDiv.style.display = 'none';
-            internationalDiv.style.display = 'none';
-
-            switch(tripType) {
-                case 'inState':
-                    coloradoCitiesDiv.style.display = 'block';
-                    break;
-                case 'outOfState':
-                    usStatesDiv.style.display = 'block';
-                    break;
-                case 'international':
-                    internationalDiv.style.display = 'block';
-                    break;
-            }
-        }
-
-
-
-
-
-
     </script>
     <style>
         /* Reset some default browser styles */
@@ -256,6 +45,7 @@
             background-color: #4d704e;
             background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ccb67c' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
         }
+
         /* Container for the form */
         form {
             max-width: 800px;
@@ -264,10 +54,6 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.5s ease-in-out;
-            animation: slideIn 0.5s forwards;
         }
 
         /* Styling for form headings */
@@ -284,7 +70,7 @@
             margin-bottom: 0.5rem;
         }
 
-        input[type="text"], input[type="number"], input[type="date"], input[type="file"] {
+        input[type="text"], input[type="date"], input[type="file"] {
             width: 100%;
             padding: 0.5rem;
             margin-bottom: 1rem;
@@ -292,7 +78,7 @@
             border-radius: 4px;
         }
 
-        input[type="submit"] {
+        input[type="submit"], button {
             background-color: #333;
             color: #fff;
             padding: 0.5rem 1rem;
@@ -301,469 +87,63 @@
             cursor: pointer;
         }
 
-        input[type="submit"]:hover {
+        input[type="submit"]:hover, button:hover {
             background-color: #555;
         }
-        /* Targeting all span elements that display totals */
-        span[id$="Cost"], span[id$="Display"], span[id$="Total"] {
-            font-weight: bold;
-        }
-        font-weight: bold;
-        }
-        /* Styling for total labels */
-        .total-label {
-            font-weight: bold;
-        }
-        @keyframes slideIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-        /* Input field focus animation */
-        input[type="text"]:focus,
-        input[type="number"]:focus,
-        input[type="date"]:focus,
-        input[type="file"]:focus {
-            border-color: #007BFF;
-            box-shadow: 0 0 5px rgba(0,123,255,0.5);
+        table, th, td {
+            border: 1px solid #ddd;
         }
 
-        /* Button hover and click animation */
-        input[type="submit"]:hover {
-            background-color: #555;
-            transform: scale(1.05);
+        th, td {
+            padding: 8px;
+            text-align: left;
         }
-
-        input[type="submit"]:active {
-            transform: scale(1);
-            box-shadow: inset 0 0 5px #333;
-        }
-        #otherExpensesSection {
-        margin: 20px 0;
-        padding: 10px;
-        border: 1px solid #DAB965; /* CSU Gold */
-        border-radius: 10px;
-        background-color: rgba(255, 255, 255, 0.1); /* Light transparent background */
-        }
-
-        #otherExpenses {
-            width: calc(100% - 20px);  /* Adjusting for 10px padding on left and right */
-            padding: 10px;
-            border: 1px solid #DAB965;
-            border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.2); /* Light transparent background for textarea */
-
-        }
-        *, *:before, *:after {
-        box-sizing: border-box;
-        }
-
-
-}
-
     </style>
 </head>
 
-    <form id="travelRequestForm" onsubmit="event.preventDefault(); sendForm();" enctype="multipart/form-data">
-    <!-- Traveler Information -->
-    <h3>Traveler Information</h3>
-    <label for="travelerName">Traveler Name:</label>
-    <input type="text" id="travelerName" name="traveler_name" required><br><br>
+<body>
+    <form id="positionDetailsForm" onsubmit="onClick(event);" enctype="multipart/form-data">
+        <!-- HR Position Details -->
+        <h3>HR Position Details</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Position Title</th>
+                    <th>Department</th>
+                    <th>Location</th>
+                    <th>Job Type</th>
+                    <th>Salary</th>
+                    <th>Experience Required</th>
+                    <th>Qualification</th>
+                    <th>Responsibilities</th>
+                    <th>Skills</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody id="positionTableBody">
+                <tr>
+                    <td><input type="text" name="position_1_field_1"></td>
+                    <td><input type="text" name="position_1_field_2"></td>
+                    <td><input type="text" name="position_1_field_3"></td>
+                    <td><input type="text" name="position_1_field_4"></td>
+                    <td><input type="text" name="position_1_field_5"></td>
+                    <td><input type="text" name="position_1_field_6"></td>
+                    <td><input type="text" name="position_1_field_7"></td>
+                    <td><input type="text" name="position_1_field_8"></td>
+                    <td><input type="text" name="position_1_field_9"></td>
+                    <td><input type="text" name="position_1_field_10"></td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" onclick="addPositionRow()">Add Another Position</button>
+        <input type="submit" value="Submit">
+    </form>
+</body>
 
-    <label for="tripBeginDate">Trip Begin Date:</label>
-    <input type="date" id="tripBeginDate" name="trip_begin_date" required><br><br>
-
-    <label for="tripEndDate">Trip End Date:</label>
-    <input type="date" id="tripEndDate" name="trip_end_date" required oninput="generatePerDiemTable();"><br><br>
-    <label id="tripType">Type of Travel:</label><br>
-    <input type="radio" id="inState" name="tripType" value="inState" onclick="toggleDestinationType('inState')"> In State<br>
-    <input type="radio" id="outOfState" name="tripType" value="outOfState" onclick="toggleDestinationType('outOfState')"> Out of State<br>
-    <input type="radio" id="international" name="tripType" value="international" onclick="toggleDestinationType('international')"> International<br>
-    <input type="text" name="fax_number" id="fax_number" value="" style="display: none;">
-
-    <!-- New Towns Dropdown (Initially hidden) -->
-    <div id="coloradoCities" style="display: none;">
-        <label for="city">Select City:</label>
-        <select id="city" name="city">
-            <option value="Akron">Akron</option>
-            <option value="Alamosa">Alamosa</option>
-            <option value="Allenspark">Allenspark</option>
-            <option value="Antonito">Antonito</option>
-            <option value="Arboles">Arboles</option>
-            <option value="Arriba">Arriba</option>
-            <option value="Arvada">Arvada</option>
-            <option value="Aspen">Aspen</option>
-            <option value="Ault">Ault</option>
-            <option value="Aurora">Aurora</option>
-            <option value="Avon">Avon</option>
-            <option value="Avondale">Avondale</option>
-            <option value="Basalt">Basalt</option>
-            <option value="Battlement Mesa">Battlement Mesa</option>
-            <option value="Bayfield">Bayfield</option>
-            <option value="Bennett">Bennett</option>
-            <option value="Berthoud">Berthoud</option>
-            <option value="Bethune">Bethune</option>
-            <option value="Blanca">Blanca</option>
-            <option value="Boone">Boone</option>
-            <option value="Boulder">Boulder</option>
-            <option value="Breckenridge">Breckenridge</option>
-            <option value="Brighton">Brighton</option>
-            <option value="Broomfield">Broomfield</option>
-            <option value="Brush">Brush</option>
-            <option value="Buena Vista">Buena Vista</option>
-            <option value="Burlington">Burlington</option>
-            <option value="Byers">Byers</option>
-            <option value="Calhan">Calhan</option>
-            <option value="Canon City">Canon City</option>
-            <option value="Carbondale">Carbondale</option>
-            <option value="Castle Rock">Castle Rock</option>
-            <option value="Cedaredge">Cedaredge</option>
-            <option value="Center">Center</option>
-            <option value="Central City">Central City</option>
-            <option value="Cheraw">Cheraw</option>
-            <option value="Cheyenne Wells">Cheyenne Wells</option>
-            <option value="Clifton">Clifton</option>
-            <option value="Coal Creek">Coal Creek</option>
-            <option value="Collbran">Collbran</option>
-            <option value="Colorado City">Colorado City</option>
-            <option value="Colorado Springs">Colorado Springs</option>
-            <option value="Commerce City">Commerce City</option>
-            <option value="Cortez">Cortez</option>
-            <option value="Craig">Craig</option>
-            <option value="Crawford">Crawford</option>
-            <option value="Creede">Creede</option>
-            <option value="Crested Butte">Crested Butte</option>
-            <option value="Cripple Creek">Cripple Creek</option>
-            <option value="Dacono">Dacono</option>
-            <option value="De Beque">De Beque</option>
-            <option value="Deer Trail">Deer Trail</option>
-            <option value="Del Norte">Del Norte</option>
-            <option value="Delta">Delta</option>
-            <option value="Denver">Denver</option>
-            <option value="Dillon">Dillon</option>
-            <option value="Dinosaur">Dinosaur</option>
-            <option value="Dolores">Dolores</option>
-            <option value="Dove Creek">Dove Creek</option>
-            <option value="Durango">Durango</option>
-            <option value="Eads">Eads</option>
-            <option value="Eagle">Eagle</option>
-            <option value="Eaton">Eaton</option>
-            <option value="Eckley">Eckley</option>
-            <option value="Edwards">Edwards</option>
-            <option value="Eldorado Springs">Eldorado Springs</option>
-            <option value="Elizabeth">Elizabeth</option>
-            <option value="Empire">Empire</option>
-            <option value="Englewood">Englewood</option>
-            <option value="Erie">Erie</option>
-            <option value="Estes Park">Estes Park</option>
-            <option value="Evans">Evans</option>
-            <option value="Evergreen">Evergreen</option>
-            <option value="Fairplay">Fairplay</option>
-            <option value="Firestone">Firestone</option>
-            <option value="Flagler">Flagler</option>
-            <option value="Fleming">Fleming</option>
-            <option value="Florence">Florence</option>
-            <option value="Fort Collins">Fort Collins</option>
-            <option value="Fort Garland">Fort Garland</option>
-            <option value="Fort Lupton">Fort Lupton</option>
-            <option value="Fort Morgan">Fort Morgan</option>
-            <option value="Fountain">Fountain</option>
-            <option value="Fowler">Fowler</option>
-            <option value="Fraser">Fraser</option>
-            <option value="Frederick">Frederick</option>
-            <option value="Frisco">Frisco</option>
-            <option value="Fruita">Fruita</option>
-            <option value="Genoa">Genoa</option>
-            <option value="Georgetown">Georgetown</option>
-            <option value="Gilcrest">Gilcrest</option>
-            <option value="Glenwood Springs">Glenwood Springs</option>
-            <option value="Golden">Golden</option>
-            <option value="Granada">Granada</option>
-            <option value="Granby">Granby</option>
-            <option value="Grand Junction">Grand Junction</option>
-            <option value="Grand Lake">Grand Lake</option>
-            <option value="Greeley">Greeley</option>
-            <option value="Green Mountain Falls">Green Mountain Falls</option>
-            <option value="Gunnison">Gunnison</option>
-            <option value="Gypsum">Gypsum</option>
-            <option value="Haxtun">Haxtun</option>
-            <option value="Hayden">Hayden</option>
-            <option value="Hillrose">Hillrose</option>
-            <option value="Holly">Holly</option>
-            <option value="Holyoke">Holyoke</option>
-            <option value="Hot Sulphur Springs">Hot Sulphur Springs</option>
-            <option value="Hotchkiss">Hotchkiss</option>
-            <option value="Hudson">Hudson</option>
-            <option value="Hugo">Hugo</option>
-            <option value="Idaho Springs">Idaho Springs</option>
-            <option value="Ignacio">Ignacio</option>
-            <option value="Iliff">Iliff</option>
-            <option value="Indian Hills">Indian Hills</option>
-            <option value="Jamestown">Jamestown</option>
-            <option value="Johnstown">Johnstown</option>
-            <option value="Julesburg">Julesburg</option>
-            <option value="Keenesburg">Keenesburg</option>
-            <option value="Kersey">Kersey</option>
-            <option value="Kiowa">Kiowa</option>
-            <option value="Kit Carson">Kit Carson</option>
-            <option value="Kittredge">Kittredge</option>
-            <option value="Kremmling">Kremmling</option>
-            <option value="La Jara">La Jara</option>
-            <option value="La Junta">La Junta</option>
-            <option value="La Salle">La Salle</option>
-            <option value="La Veta">La Veta</option>
-            <option value="Lafayette">Lafayette</option>
-            <option value="Lake City">Lake City</option>
-            <option value="Lamar">Lamar</option>
-            <option value="Laporte">Laporte</option>
-            <option value="Larkspur">Larkspur</option>
-            <option value="Las Animas">Las Animas</option>
-            <option value="Leadville">Leadville</option>
-            <option value="Limon">Limon</option>
-            <option value="Littleton">Littleton</option>
-            <option value="Log Lane Village">Log Lane Village</option>
-            <option value="Longmont">Longmont</option>
-            <option value="Louisville">Louisville</option>
-            <option value="Louviers">Louviers</option>
-            <option value="Loveland">Loveland</option>
-            <option value="Lyons">Lyons</option>
-            <option value="Manassa">Manassa</option>
-            <option value="Mancos">Mancos</option>
-            <option value="Manitou Springs">Manitou Springs</option>
-            <option value="Manzanola">Manzanola</option>
-            <option value="Mead">Mead</option>
-            <option value="Meeker">Meeker</option>
-            <option value="Merino">Merino</option>
-            <option value="Milliken">Milliken</option>
-            <option value="Minturn">Minturn</option>
-            <option value="Monte Vista">Monte Vista</option>
-            <option value="Monument">Monument</option>
-            <option value="Morrison">Morrison</option>
-            <option value="Naturita">Naturita</option>
-            <option value="Nederland">Nederland</option>
-            <option value="New Castle">New Castle</option>
-            <option value="Niwot">Niwot</option>
-            <option value="Norwood">Norwood</option>
-            <option value="Nucla">Nucla</option>
-            <option value="Nunn">Nunn</option>
-            <option value="Oak Creek">Oak Creek</option>
-            <option value="Olathe">Olathe</option>
-            <option value="Olney Springs">Olney Springs</option>
-            <option value="Ordway">Ordway</option>
-            <option value="Otis">Otis</option>
-            <option value="Ouray">Ouray</option>
-            <option value="Ovid">Ovid</option>
-            <option value="Pagosa Springs">Pagosa Springs</option>
-            <option value="Palisade">Palisade</option>
-            <option value="Palmer Lake">Palmer Lake</option>
-            <option value="Paonia">Paonia</option>
-            <option value="Parachute">Parachute</option>
-            <option value="Parker">Parker</option>
-            <option value="Peetz">Peetz</option>
-            <option value="Penrose">Penrose</option>
-            <option value="Pierce">Pierce</option>
-            <option value="Platteville">Platteville</option>
-            <option value="Poncha Springs">Poncha Springs</option>
-            <option value="Pueblo">Pueblo</option>
-            <option value="Rangely">Rangely</option>
-            <option value="Red Cliff">Red Cliff</option>
-            <option value="Red Feather Lakes">Red Feather Lakes</option>
-            <option value="Rico">Rico</option>
-            <option value="Ridgway">Ridgway</option>
-            <option value="Rifle">Rifle</option>
-            <option value="Rockvale">Rockvale</option>
-            <option value="Rocky Ford">Rocky Ford</option>
-            <option value="Romeo">Romeo</option>
-            <option value="Rye">Rye</option>
-            <option value="Saguache">Saguache</option>
-            <option value="Salida">Salida</option>
-            <option value="San Luis">San Luis</option>
-            <option value="Sanford">Sanford</option>
-            <option value="Sedalia">Sedalia</option>
-            <option value="Severance">Severance</option>
-            <option value="Silt">Silt</option>
-            <option value="Silver Plume">Silver Plume</option>
-            <option value="Silverthorne">Silverthorne</option>
-            <option value="Silverton">Silverton</option>
-            <option value="Simla">Simla</option>
-            <option value="Snowmass Village">Snowmass Village</option>
-            <option value="South Fork">South Fork</option>
-            <option value="Springfield">Springfield</option>
-            <option value="Steamboat Springs">Steamboat Springs</option>
-            <option value="Sterling">Sterling</option>
-            <option value="Strasburg">Strasburg</option>
-            <option value="Stratton">Stratton</option>
-            <option value="Sugar City">Sugar City</option>
-            <option value="Swink">Swink</option>
-            <option value="Telluride">Telluride</option>
-            <option value="Thornton">Thornton</option>
-            <option value="Timnath">Timnath</option>
-            <option value="Towaoc">Towaoc</option>
-            <option value="Trinidad">Trinidad</option>
-            <option value="Vail">Vail</option>
-            <option value="Victor">Victor</option>
-            <option value="Walden">Walden</option>
-            <option value="Walsenburg">Walsenburg</option>
-            <option value="Walsh">Walsh</option>
-            <option value="Wellington">Wellington</option>
-            <option value="Westcliffe">Westcliffe</option>
-            <option value="Westminster">Westminster</option>
-            <option value="Wheat Ridge">Wheat Ridge</option>
-            <option value="Wiggins">Wiggins</option>
-            <option value="Wiley">Wiley</option>
-            <option value="Windsor">Windsor</option>
-            <option value="Winter Park">Winter Park</option>
-            <option value="Woodland Park">Woodland Park</option>
-            <option value="Wray">Wray</option>
-            <option value="Yampa">Yampa</option>
-            <option value="Yuma">Yuma</option>
-        </select>
-    </div>
-    <div id="usStates" style="display: none;">
-        <label for="state">State:</label>
-        <select id="state" name="state">
-            <option value="Alabama">Alabama</option>
-            <option value="Alaska">Alaska</option>
-            <option value="Arizona">Arizona</option>
-            <option value="Arkansas">Arkansas</option>
-            <option value="California">California</option>
-            <option value="Colorado">Colorado</option>
-            <option value="Connecticut">Connecticut</option>
-            <option value="Delaware">Delaware</option>
-            <option value="Florida">Florida</option>
-            <option value="Georgia">Georgia</option>
-            <option value="Hawaii">Hawaii</option>
-            <option value="Idaho">Idaho</option>
-            <option value="Illinois">Illinois</option>
-            <option value="Indiana">Indiana</option>
-            <option value="Iowa">Iowa</option>
-            <option value="Kansas">Kansas</option>
-            <option value="Kentucky">Kentucky</option>
-            <option value="Louisiana">Louisiana</option>
-            <option value="Maine">Maine</option>
-            <option value="Maryland">Maryland</option>
-            <option value="Massachusetts">Massachusetts</option>
-            <option value="Michigan">Michigan</option>
-            <option value="Minnesota">Minnesota</option>
-            <option value="Mississippi">Mississippi</option>
-            <option value="Missouri">Missouri</option>
-            <option value="Montana">Montana</option>
-            <option value="Nebraska">Nebraska</option>
-            <option value="Nevada">Nevada</option>
-            <option value="New Hampshire">New Hampshire</option>
-            <option value="New Jersey">New Jersey</option>
-            <option value="New Mexico">New Mexico</option>
-            <option value="New York">New York</option>
-            <option value="North Carolina">North Carolina</option>
-            <option value="North Dakota">North Dakota</option>
-            <option value="Ohio">Ohio</option>
-            <option value="Oklahoma">Oklahoma</option>
-            <option value="Oregon">Oregon</option>
-            <option value="Pennsylvania">Pennsylvania</option>
-            <option value="Rhode Island">Rhode Island</option>
-            <option value="South Carolina">South Carolina</option>
-            <option value="South Dakota">South Dakota</option>
-            <option value="Tennessee">Tennessee</option>
-            <option value="Texas">Texas</option>
-            <option value="Utah">Utah</option>
-            <option value="Vermont">Vermont</option>
-            <option value="Virginia">Virginia</option>
-            <option value="Washington">Washington</option>
-            <option value="West Virginia">West Virginia</option>
-            <option value="Wisconsin">Wisconsin</option>
-            <option value="Wyoming">Wyoming</option>
-        </select>
-
-        <label for="cityName">City:</label>
-        <input type="text" id="cityName" name="city_name" placeholder="Enter city name" required>
-    </div>
-    <div id="internationalSection" style="display: none;">
-    <label for="countryName">Country:</label>
-    <input type="text" id="countryName" name="country_name" placeholder="Enter country name" required style="margin-top: 10px;"><br><br>
-
-    <label for="internationalCityName">City:</label>
-    <input type="text" id="internationalCityName" name="international_city_name" placeholder="Enter city name" required style="margin-top: 10px;">
-    </div>
-    <label for ="reason">Reason for Travel:</label>
-    <input type="text" id="Reason for Travel" name="Reason for Travel" required><br><br>
-
-
-
-    <!-- Transportation Information -->
-    <h3>Transportation Information</h3>
-    <label for="mileage">Mileage:</label>
-    <input type="text" id="mileage" name="mileage" oninput="calculateMileageCost();">
-    <span id="mileageCost">$0.00</span><br><br>
-
-    <label for="shuttleTaxi">Shuttle/Taxi:</label>
-    <input type="text" id="shuttleTaxi" name="shuttle_taxi" oninput="displayAmount('shuttleTaxi', 'shuttleTaxiCost');">
-    <span id="shuttleTaxiCost">$0.00</span><br><br>
-
-    <label for="parking">Parking:</label>
-    <input type="text" id="parking" name="parking" oninput="displayAmount('parking', 'parkingCost');">
-    <span id="parkingCost">$0.00</span><br><br>
-
-    <label for="flightCost">Estimated Cost of Flight:</label>
-    <input type="text" id="flightCost" name="flight_cost" oninput="displayAmount('flightCost', 'flightCostDisplay');">
-    <span id="flightCostDisplay">$0.00</span><br><br>
-
-    <label for="totalTransportationCost" class="total-label">Total Transportation Cost:</label>
-    <span id="totalTransportationCost">$0.00</span><br><br>
-
-
-
-
-    <h3>Lodging Information</h3>
-    <label for="hotelName">Hotel Name:</label>
-    <input type="text" id="hotelName" name="hotel_name"><br><br>
-
-    <label for="hotelLocation">Hotel Location (City & State):</label>
-    <input type="text" id="hotelLocation" name="hotel_location"><br><br>
-
-    <label for="nights">Number of Nights:</label>
-    <input type="number" id="nights" name="nights" oninput="calculateTotalLodgingCost();"><br><br>
-
-    <label for="costPerNight">Cost per Night:</label>
-    <input type="text" id="costPerNight" name="cost_per_night" oninput="calculateTotalLodgingCost();"><br><br>
-
-    <label for="totalLodgingCost" class="total-label">Total Lodging Cost:</label>
-    <span id="totalLodgingCost">$0.00</span><br><br>
-
-    <h3>Per Diem</h3>
-    <p>This per diem table should be considered a rough estimate. If you believe per diem rates should be higher for your destination, consult the below link and determine if the M&IE rate for your destination is higher then $70. If so, input appropriate values into the table below.</p>
-    <p>Link to per diem rates, <a href="https://www.gsa.gov/travel/plan-book/per-diem-rates">GSA.gov</a></p>
-    <div id="perDiemTableContainer"></div>
-    <label for="totalPerDiemCost" class="total-label">Total Per Diem Cost:</label>
-    <span id="totalPerDiemCost">$0.00</span><br><br>
-
-    <h3>Summary</h3>
-    <label for="summaryTransportationCost" class = "total-label">Total Transportation Cost:</label>
-    <span id="summaryTransportationCost">$0.00</span><br><br>
-
-    <label for="summaryLodgingCost" class = "total-label">Total Lodging Cost:</label>
-    <span id="summaryLodgingCost">$0.00</span><br><br>
-
-    <label for="summaryPerDiemCost" class = "total-label">Total Per Diem Cost:</label>
-    <span id="summaryPerDiemCost">$0.00</span><br><br>
-
-    <label for="grandTotal" class = "total-label">Grand Total:</label>
-    <span id="grandTotal">$0.00</span><br><br>
-
-    <!-- Other Expenses Section -->
-    <div id="otherExpensesSection">
-        <h2>Other Notes</h2>
-        <p>Please describe any additional expenses or notable considerations:</p>
-        <textarea id="otherExpenses" rows="5" cols="50" placeholder="Enter description here..."></textarea>
-    </div>
-
-
-    <!-- File Upload -->
-    <h3>Attach Files</h3>
-    <input type="file" name="attachment" id="fileInput" accept=".pdf,.doc,.docx" onchange="addFilesToList()">
-    <div id="fileList"></div>
-
-    <input type="submit" value="Submit" onclick="onClick(event)">
-</form>
 </html>
