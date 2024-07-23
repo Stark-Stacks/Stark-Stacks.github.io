@@ -50,7 +50,7 @@
                 { type: 'datalist', name: 'Position Type', list: 'positionTypeList' },
                 { type: 'datalist', name: 'Job Type', list: 'jobTypeList' },
                 { type: 'text', name: 'Salary', pattern: '\\d+' },
-                { type: 'text', name: 'FTE', pattern: '\\d+' },
+                { type: 'text', name: 'FTE', pattern: '^\d*\.?\d+$' },
                 { type: 'datalist', name: 'Object Code', list: 'objectCodeList' }
             ];
 
@@ -587,7 +587,7 @@
                         <datalist id="jobTypeList"></datalist>
                     </td>
                     <td><input type="text" name="position_1_field_5" id="position_1_field_5" placeholder="Salary" pattern="\d+"></td>
-                    <td><input type="text" name="position_1_field_6" id="position_1_field_6" placeholder="FTE" pattern="\d+"></td>
+                    <td><input type="text" name="position_1_field_6" id="position_1_field_6" placeholder="FTE" pattern="^\d*\.?\d+$"></td>
                     <td>
                         <input list="objectCodeList" name="position_1_field_7" id="position_1_field_7" placeholder="Object Code">
                         <datalist id="objectCodeList"></datalist>
