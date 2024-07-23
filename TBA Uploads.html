@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HR Position Details</title>
+    <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', async (event) => {
+            // Load data for each datalist
+            await loadData('jobTypeList', 'Job Type.txt');
+            await loadData('departmentList', 'Department.txt');
+            await loadData('positionTypeList', 'Position.txt');
+            await loadData('objectCodeList', 'Object Code.txt');
+
+            // Initialize the first row's Add Account button
+            document.querySelectorAll('.add-account-button').forEach(button => {
+                button.addEventListener('click', function () {
+                    const accountCell = this.previousElementSibling;
+                    const allocationCell = this.nextElementSibling;
+                    addAccountAllocationFields(accountCell, allocationCell);
+                });
+            });
+        });
+
+        async function loadData(datalistId, url) {
+            try {
+                const response = await fetch(url);
+                const data = await response.text();
+                const options = data.split('\n');
+                const datalist = document.getElementById(datalistId);
+
+                options.forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option.trim();
+                    datalist.appendChild(optionElement);
+                });
+            } catch (error) {
+                console.error(`Failed to load data from ${url}:`, error);
+            }
+        }
+
+        function addPositionRow() {
+            const tableBody = document.getElementById('positionTableBody');
+            const row = document.createElement('tr');
+
+            const fields = [
+                { type: 'text', name: 'Position Title', pattern: '.+' },
+                { type: 'datalist', name: 'Department', list: 'departmentList' },
+                { type: 'datalist', name: 'Position Type', list: 'positionTypeList' },
+                { type: 'datalist', name: 'Job Type', list: 'jobTypeList' },
+                { type: 'text', name: 'Salary', pattern: '\\d+' },
+                { type: 'text', name: 'FTE', pattern: '\\d+' },
+                { type: 'datalist', name: 'Object Code', list: 'objectCodeList' }
+            ];
+
+            fields.forEach((field, index) => {
+                const cell = document.createElement('td');
+                let input;
+
+                if (field.type === 'datalist') {
+                    input = document.createElement('input');
+                    input.setAttribute('list', field.list);
+                } else {
+                    input = document.createElement('input');
+                    input.type = field.type;
+                    input.pattern = field.pattern;
+                }
+
+                input.name = `position_${tableBody.rows.length + 1}_field_${index + 1}`;
+                input.placeholder = field.name;
+                input.style.minWidth = '100px'; // Set a minimum width for better visibility
+                input.style.maxWidth = '150px'; // Set a maximum width to fit on the screen
+                cell.appendChild(input);
+                row.appendChild(cell);
+            });
+
+            const accountCell = document.createElement('td');
+            const allocationCell = document.createElement('td');
+
+            const addAccountButton = document.createElement('button');
+            addAccountButton.type = 'button';
+            addAccountButton.textContent = 'Add Account';
+            addAccountButton.classList.add('add-account-button');
+            addAccountButton.addEventListener('click', function () {
+                addAccountAllocationFields(accountCell, allocationCell);
+            });
+
+            const accountFieldsContainer = document.createElement('div');
+            accountFieldsContainer.classList.add('account-fields-container');
+
+            const allocationFieldsContainer = document.createElement('div');
+            allocationFieldsContainer.classList.add('allocation-fields-container');
+
+            accountCell.appendChild(accountFieldsContainer);
+            accountCell.appendChild(addAccountButton);
+
+            allocationCell.appendChild(allocationFieldsContainer);
+
+            row.appendChild(accountCell);
+            row.appendChild(allocationCell);
+
+            tableBody.appendChild(row);
+        }
+
+        function addAccountAllocationFields(accountCell, allocationCell) {
+            const accountFieldsContainer = accountCell.querySelector('.account-fields-container');
+            const allocationFieldsContainer = allocationCell.querySelector('.allocation-fields-container');
+
+            const accountInput = document.createElement('input');
+            accountInput.type = 'text';
+            accountInput.name = 'accountNumber';
+            accountInput.placeholder = 'Account Number';
+            accountInput.required = true;
+            accountInput.style.display = 'block';
+            accountInput.style.marginTop = '5px';
+
+            const allocationInput = document.createElement('input');
+            allocationInput.type = 'text';
+            allocationInput.name = 'allocationAmount';
+            allocationInput.placeholder = 'Percent Allocation Amount';
+            allocationInput.pattern = '\\d+';
+            allocationInput.required = true;
+            allocationInput.style.display = 'block';
+            allocationInput.style.marginTop = '5px';
+
+            accountFieldsContainer.appendChild(accountInput);
+            allocationFieldsContainer.appendChild(allocationInput);
+        }
+
+        function summarizeData() {
+            const tableBody = document.getElementById('positionTableBody');
+            const rows = tableBody.getElementsByTagName('tr');
+            const summary = {};
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('input');
+                const department = cells[1].value;
+                const objectCode = cells[6].value;
+                const salary = parseFloat(cells[4].value) || 0;
+                const fte = parseFloat(cells[5].value) || 0;
+
+                if (!summary[department]) {
+                    summary[department] = {};
+                }
+                if (!summary[department][objectCode]) {
+                    summary[department][objectCode] = { salary: 0, fte: 0 };
+                }
+                summary[department][objectCode].salary += salary;
+                summary[department][objectCode].fte += fte;
+            }
+
+            let summaryHtml = '<h2>Summary</h2>';
+            for (const dept in summary) {
+                summaryHtml += `<h3>${dept}</h3>`;
+                for (const objCode in summary[dept]) {
+                    summaryHtml += `<p>Object Code: ${objCode}, Total Salary: ${summary[dept][objCode].salary}, Total FTE: ${summary[dept][objCode].fte}</p>`;
+                }
+            }
+
+            document.getElementById('summaryContent').innerHTML = summaryHtml;
+            document.getElementById('summaryModal').style.display = 'block';
+            startCountdown();
+        }
+
+        function closeModal() {
+            document.getElementById('summaryModal').style.display = 'none';
+        }
+
+        function sendForm(event) {
+            event.preventDefault(); // Prevent the default form submission
+            const form = document.getElementById('positionDetailsForm');
+            if (form.checkValidity()) {
+                summarizeData();
+            } else {
+                alert('Please fill out all required fields correctly.');
+            }
+        }
+
+        function toggleMode() {
+            const body = document.body;
+            const toggleButton = document.querySelector('.toggle-button');
+            const toggleIcon = document.querySelector('.toggle-icon');
+            const isDarkMode = body.classList.contains('dark-mode');
+            
+            body.classList.toggle('dark-mode', !isDarkMode);
+            body.classList.toggle('light-mode', isDarkMode);
+            
+            toggleIcon.dataset.icon = isDarkMode ? 'bi:sun' : 'bi:moon';
+            toggleButton.style.backgroundColor = isDarkMode ? '#f5f5f5' : '#666';
+        }
+
+        function createExcelSheet() {
+            const tableBody = document.getElementById('positionTableBody');
+            const rows = tableBody.getElementsByTagName('tr');
+            const data = [];
+
+            const headers = [
+                'Position Title', 'Department', 'Position Type', 'Job Type',
+                'Salary', 'FTE', 'Object Code', 'Account Numbers', 'Percent Allocation Amounts'
+            ];
+            data.push(headers);
+
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const cells = row.getElementsByTagName('input');
+                const rowData = [];
+                const accountNumbers = [];
+                const allocationAmounts = [];
+                
+                for (let j = 0; j < cells.length; j++) {
+                    if (j < 7) {
+                        rowData.push(cells[j].value);
+                    } else if (j % 2 === 0) {
+                        accountNumbers.push(cells[j].value);
+                    } else {
+                        allocationAmounts.push(cells[j].value);
+                    }
+                }
+                rowData.push(accountNumbers.join(', '));
+                rowData.push(allocationAmounts.join(', '));
+                data.push(rowData);
+            }
+
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(data);
+
+            XLSX.utils.book_append_sheet(wb, ws, 'HR Position Details');
+            XLSX.writeFile(wb, 'HR_Position_Details.xlsx');
+        }
+
+        function startCountdown() {
+            const countdownButton = document.getElementById('countdownButton');
+            let countdown = 5;
+            countdownButton.disabled = true;
+            countdownButton.textContent = `Please wait ${countdown} seconds...`;
+
+            const interval = setInterval(() => {
+                countdown--;
+                countdownButton.textContent = `Please wait ${countdown} seconds...`;
+                if (countdown === 0) {
+                    clearInterval(interval);
+                    countdownButton.textContent = 'Confirm';
+                    countdownButton.disabled = false;
+                }
+            }, 1000);
+
+            countdownButton.addEventListener('click', function() {
+                if (!countdownButton.disabled) {
+                    createExcelSheet();
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // The new button is no longer tied to any functionality
+            // Remove the event listener for the new button
+            const newButton = document.querySelector('.new-button');
+            if (newButton) {
+                newButton.removeEventListener('click', createExcelSheet);
+            } else {
+                console.error('New button not found');
+            }
+        });
+    </script>
+    <style>
+        /* Reset some default browser styles */
+        body, h3, form {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Light mode styles */
+        .light-mode {
+            background-color: #f5f5f5; /* Light gray background */
+            color: #333;
+        }
+        .light-mode form {
+            background-color: #fff;
+        }
+        .light-mode input, .light-mode textarea, .light-mode select {
+            background-color: #fff;
+            color: #333;
+        }
+        .light-mode input[type="submit"], .light-mode button[type="button"] {
+            background-color: #d3d3d3; /* Light gray */
+            color: #333;
+        }
+        .light-mode input[type="submit"]:hover, .light-mode button[type="button"]:hover {
+            background-color: #b0b0b0; /* Darker gray */
+        }
+        .light-mode .toggle-button, .light-mode .new-button {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .light-mode .toggle-button:hover, .light-mode .new-button:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Dark mode styles */
+        .dark-mode {
+            background-color: #1a1a1a;
+            color: #f2f2f2;
+        }
+        .dark-mode form {
+            background-color: #333;
+        }
+        .dark-mode input, .dark-mode textarea, .dark-mode select {
+            background-color: #555;
+            color: #f2f2f2;
+        }
+        .dark-mode input[type="submit"], .dark-mode button[type="button"] {
+            background-color: #444;
+            color: #f2f2f2;
+        }
+        .dark-mode input[type="submit"]:hover, .dark-mode button[type="button"]:hover {
+            background-color: #666;
+        }
+        .dark-mode .toggle-button, .dark-mode .new-button {
+            background-color: #666;
+            color: white;
+        }
+        .dark-mode .toggle-button:hover, .dark-mode .new-button:hover {
+            background-color: #555;
+        }
+
+        /* Container for the form */
+        form {
+            max-width: 100%;
+            margin: 2rem auto;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: auto;
+        }
+
+        /* Styling for form headings */
+        h3 {
+            padding: 1rem 0;
+            border-bottom: 1px solid #e4e4e4;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Styling for labels and input fields */
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"], input[type="date"], input[type="file"], input[list], select {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"], button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: auto; /* Adjusted table layout for better flexibility */
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            vertical-align: top; /* Align to top to ensure all content is aligned */
+            overflow: hidden; /* Ensure content does not overflow */
+            white-space: nowrap; /* Prevent text from wrapping */
+            text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+        }
+
+        /* Make table columns resizable */
+        th, td {
+            resize: horizontal;
+            overflow: auto;
+        }
+
+        th input, td input, th select, td select {
+            min-width: 100px;
+            max-width: 150px;
+            box-sizing: border-box; /* Ensure padding is included in width */
+        }
+
+        .toggle-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-60px); /* Adjusted for centering with the new button */
+            z-index: 1000;
+            background-color: #666;
+        }
+
+        .new-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(10px); /* Adjusted for positioning to the right of the toggle button */
+            z-index: 1000;
+            background-color: #666;
+        }
+
+        .toggle-icon {
+            font-size: 24px;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .light-mode .toggle-icon {
+            color: black;
+        }
+
+        .new-button-icon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M16.59 9H15V4c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1v5H7.41c-.89 0-1.34 1.08-.71 1.71l4.59 4.59c.39.39 1.02.39 1.41 0l4.59-4.59c.63-.63.19-1.71-.7-1.71M5 19c0 .55.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1H6c-.55 0-1 .45-1 1'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 24px;
+            height: 24px;
+        }
+
+        .account-fields-container,
+        .allocation-fields-container {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.4); 
+            padding-top: 60px; 
+        }
+
+        .modal-content {
+            margin: 5% auto; 
+            padding: 20px; 
+            border: 1px solid #888;
+            width: 80%; 
+            border-radius: 8px;
+        }
+
+        .close-button {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Light mode modal styles */
+        .light-mode .modal-content {
+            background-color: #fefefe;
+            color: #333;
+        }
+
+        .light-mode .close-button {
+            color: #aaa;
+        }
+
+        .light-mode .close-button:hover,
+        .light-mode .close-button:focus {
+            color: black;
+        }
+
+        /* Dark mode modal styles */
+        .dark-mode .modal-content {
+            background-color: #333;
+            color: #f2f2f2;
+        }
+
+        .dark-mode .close-button {
+            color: #f2f2f2;
+        }
+
+        .dark-mode .close-button:hover,
+        .dark-mode .close-button:focus {
+            color: white;
+        }
+
+        /* Countdown button styles */
+        #countdownButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: not-allowed;
+            transition: background-color 0.3s;
+        }
+
+        .light-mode #countdownButton {
+            background-color: #d3d3d3;
+            color: #333;
+        }
+
+        .dark-mode #countdownButton {
+            background-color: #444;
+            color: #f2f2f2;
+        }
+
+        .light-mode #countdownButton:enabled {
+            background-color: #b0b0b0;
+            cursor: pointer;
+        }
+
+        .dark-mode #countdownButton:enabled {
+            background-color: #666;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <button class="toggle-button" onclick="toggleMode()">
+        <span class="iconify toggle-icon" data-icon="bi:moon" data-inline="false"></span>
+    </button>
+    <button class="new-button">
+        <span class="new-button-icon" data-icon="ic:round-download" data-inline="false"></span>
+    </button>
+    <form id="positionDetailsForm" onsubmit="sendForm(event);" enctype="multipart/form-data">
+        <!-- HR Position Details -->
+        <h3>HR Position Details</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Position Title</th>
+                    <th>Department</th>
+                    <th>Position Type</th>
+                    <th>Job Type</th>
+                    <th>Salary</th>
+                    <th>FTE</th>
+                    <th>Object Code</th>
+                    <th>Account Numbers</th>
+                    <th>Percent Allocation Amounts</th>
+                </tr>
+            </thead>
+            <tbody id="positionTableBody">
+                <tr>
+                    <td><input type="text" name="position_1_field_1" id="position_1_field_1" placeholder="Position Title" pattern=".+"></td>
+                    <td>
+                        <input list="departmentList" name="position_1_field_2" id="position_1_field_2" placeholder="Department">
+                        <datalist id="departmentList"></datalist>
+                    </td>
+                    <td>
+                        <input list="positionTypeList" name="position_1_field_3" id="position_1_field_3" placeholder="Position Type">
+                        <datalist id="positionTypeList"></datalist>
+                    </td>
+                    <td>
+                        <input list="jobTypeList" name="position_1_field_4" id="position_1_field_4" placeholder="Job Type">
+                        <datalist id="jobTypeList"></datalist>
+                    </td>
+                    <td><input type="text" name="position_1_field_5" id="position_1_field_5" placeholder="Salary" pattern="\d+"></td>
+                    <td><input type="text" name="position_1_field_6" id="position_1_field_6" placeholder="FTE" pattern="\d+"></td>
+                    <td>
+                        <input list="objectCodeList" name="position_1_field_7" id="position_1_field_7" placeholder="Object Code">
+                        <datalist id="objectCodeList"></datalist>
+                    </td>
+                    <td>
+                        <div class="account-fields-container"></div>
+                        <button type="button" class="add-account-button" onclick="addAccountAllocationFields(this.parentNode, this.parentNode.nextElementSibling)">Add Account</button>
+                    </td>
+                    <td><div class="allocation-fields-container"></div></td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" onclick="addPositionRow()">Add Position</button>
+        <input type="submit" value="Submit">
+    </form>
+
+    <!-- Modal Container -->
+    <div id="summaryModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <div id="summaryContent"></div>
+            <button id="countdownButton" disabled>Confirm</button>
+        </div>
+    </div>
+</body>
+</html>

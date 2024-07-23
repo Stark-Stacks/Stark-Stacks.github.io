@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Position Allocation Details</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script>
+        function addPositionRow() {
+            const tableBody = document.getElementById('positionTableBody');
+            const row = document.createElement('tr');
+
+            const positionTitleCell = document.createElement('td');
+            const positionTitleInput = document.createElement('input');
+            positionTitleInput.type = 'text';
+            positionTitleInput.name = 'positionTitle';
+            positionTitleInput.placeholder = 'Position Title';
+            positionTitleInput.required = true;
+            positionTitleCell.appendChild(positionTitleInput);
+            row.appendChild(positionTitleCell);
+
+            const accountCell = document.createElement('td');
+            const allocationCell = document.createElement('td');
+
+            const addAccountButton = document.createElement('button');
+            addAccountButton.type = 'button';
+            addAccountButton.textContent = 'Add Account';
+            addAccountButton.onclick = () => addAccountAllocationFields(accountCell, allocationCell);
+
+            const accountFieldsContainer = document.createElement('div');
+            accountFieldsContainer.classList.add('account-fields-container');
+
+            const allocationFieldsContainer = document.createElement('div');
+            allocationFieldsContainer.classList.add('allocation-fields-container');
+
+            accountCell.appendChild(accountFieldsContainer);
+            accountCell.appendChild(addAccountButton);
+
+            allocationCell.appendChild(allocationFieldsContainer);
+
+            row.appendChild(accountCell);
+            row.appendChild(allocationCell);
+
+            tableBody.appendChild(row);
+        }
+
+        function addAccountAllocationFields(accountCell, allocationCell) {
+            const accountFieldsContainer = accountCell.querySelector('.account-fields-container');
+            const allocationFieldsContainer = allocationCell.querySelector('.allocation-fields-container');
+
+            const accountInput = document.createElement('input');
+            accountInput.type = 'text';
+            accountInput.name = 'accountNumber';
+            accountInput.placeholder = 'Account Number';
+            accountInput.required = true;
+            accountInput.style.display = 'block';
+            accountInput.style.marginTop = '5px';
+
+            const allocationInput = document.createElement('input');
+            allocationInput.type = 'text';
+            allocationInput.name = 'allocationAmount';
+            allocationInput.placeholder = 'Percent Allocation Amount';
+            allocationInput.pattern = '\\d+';
+            allocationInput.required = true;
+            allocationInput.style.display = 'block';
+            allocationInput.style.marginTop = '5px';
+
+            accountFieldsContainer.appendChild(accountInput);
+            allocationFieldsContainer.appendChild(allocationInput);
+        }
+
+        function createExcelSheet() {
+            const tableBody = document.getElementById('positionTableBody');
+            const rows = tableBody.getElementsByTagName('tr');
+            const data = [];
+
+            const headers = [
+                'Position Title', 'Account Numbers', 'Percent Allocation Amounts'
+            ];
+            data.push(headers);
+
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const positionTitle = row.querySelector('input[name="positionTitle"]').value;
+                const accountNumbers = Array.from(row.querySelectorAll('input[name="accountNumber"]')).map(input => input.value).join(', ');
+                const allocationAmounts = Array.from(row.querySelectorAll('input[name="allocationAmount"]')).map(input => input.value).join(', ');
+
+                data.push([positionTitle, accountNumbers, allocationAmounts]);
+            }
+
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(data);
+
+            XLSX.utils.book_append_sheet(wb, ws, 'Position Allocation Details');
+            XLSX.writeFile(wb, 'Position_Allocation_Details.xlsx');
+        }
+    </script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        input[type="text"] {
+            width: calc(100% - 10px);
+            padding: 5px;
+        }
+        button {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h3>Position Allocation Details</h3>
+    <form id="positionDetailsForm" onsubmit="event.preventDefault(); createExcelSheet();">
+        <table>
+            <thead>
+                <tr>
+                    <th>Position Title</th>
+                    <th>Account Numbers</th>
+                    <th>Percent Allocation Amounts</th>
+                </tr>
+            </thead>
+            <tbody id="positionTableBody"></tbody>
+        </table>
+        <button type="button" onclick="addPositionRow()">Add Another Position</button>
+        <input type="submit" value="Export to Excel">
+    </form>
+</body>
+</html>

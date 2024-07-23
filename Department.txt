@@ -1,0 +1,518 @@
+0001 - Board of Governors of CSU System
+0002 - CSUS - CFO
+0003 - CSUS Treasury
+0004 - Chancellor's Office
+0006 - General Counsel
+0019 - Internal Auditing
+0029 - SPUR Operations + Maintenance
+0030 - SPUR Administration
+0031 - SPUR College of Agriculture
+0032 - SPUR College of Business
+0033 - SPUR College of Engineering
+0034 - SPUR College of Natural Resources
+0035 - SPUR College of Health and Human Science
+0036 - SPUR College of Vet Med
+0037 - SPUR College of Liberal Arts
+0038 - SPUR College of Natural Sciences
+0039 - SPUR Office of Engagement and Extension
+0040 - SPUR Vice President for Research
+0041 - SPUR Provost
+0100 - President's Office
+0101 - Vice President for Strategy
+0111 - Central Accounts
+0112 - Allocations
+0113 - Administrative Communications
+0114 - Communications
+0120 - Athletics
+0125 - Stadium
+0135 - President's Office-Inclusive Excellence
+0136 - Survivor Advocacy and Feminist Education Center (SAFE)
+0137 - Student Disability Center
+0138 - Native American Cultural Center
+0139 - Black/African American Cultural Center
+0141 - El Centro
+0142 - Asian/Pacific American Cultural Center
+0143 - President's Office-Athletic Compliance
+0144 - Pride Resource Center
+0150 - University Marketing + Communications
+0155 - VP Equity + Equal Opportunity + Title IX
+0160 - Equal Opportunity
+0161 - Title IX Programs + Gender Equity
+0165 - Public Safety
+0170 - Community Affairs + Engagement
+0175 - Ramtracks
+0180 - Digital and Social Media
+0460 - Other Post Empl Ben-Fiduciary Fund(OPEB)
+1001 - Provost + Executive Vice President
+1004 - Institutional Research, Plan + Effect
+1005 - Graduate School
+1009 - Telecommunications
+1010 - Cybersecurity + Privacy
+1011 - Graduate Program in Public Health - SAU
+1015 - Strategy + Planning
+1018 - Academic Computing + Network Services
+1019 - Libraries
+1020 - Enterprise Applications + Infrastructure
+1021 - Graduate Degree Program in Ecology- SAU
+1022 - VP Undergraduate Affairs
+1024 - International Programs
+1025 - Honors Program
+1029 - Information Systems
+1030 - Experience + Collaboration
+1032 - Collaborative for Student Achievement
+1033 - Colorado Water Center
+1034 - Colorado Public Policy Institute
+1035 - Joint Banner Project
+1036 - Schl of Glbl Envrnmntal Sustanabilty-SAU
+1037 - INTO CSU Center
+1038 - Center for the New Energy Economy
+1039 - Medical School Administration
+1040 - CSU Online
+1041 - CSU Professional Education
+1042 - Continuing Education-Lifelong
+1043 - OEE Collaboration Campuses
+1044 - OEE Engagement Centers
+1046 - Continuing Education-Distance
+1049 - VP Faculty Affairs
+1050 - VP Engagement
+1051 - Economic Development
+1052 - The Institute for Learning + Teaching
+1053 - Office of Assessment
+1054 - School of Materials Science and Engineering
+1055 - Cell + Molecular Biology Graduate (SAU)
+1056 - Rural Initiative
+1057 - Academic Advancement Center
+1058 - Student-Athlete Support Services
+1059 - Division of Information Technology
+1060 - VP Enrollment + Access
+1061 - The Access Center
+1062 - Admissions
+1063 - Registrar
+1064 - Scholarships
+1065 - Office of Financial Aid
+1072 - Division of Military Studies
+1073 - Institute for Shipboard Education
+1074 - University Academic Advising + Outreach
+1075 - Student Success
+1076 - Enrollment Services One Stop
+1080 - Associate VP Finance
+1081 - Salazar Center
+1082 - Osher Lifelong Learning Institute
+1083 - Engagement + Extension-Finance
+1084 - VP Engagement + Extension-Learning Prod
+1085 - VP Engagement + Extension-Scholarship
+1086 - Engagement + Extension-Info Tech
+1087 - Engagement + Extension-Site Ops
+1088 - Engagement + Extension-MarComms
+1089 - Engagement + Extension-Human Resources
+1101 - Dean of Agricultural Sciences
+1120 - Soil, Water + Plant Testing Laboratory
+1170 - Soil + Crop Sciences
+1171 - Animal Sciences
+1172 - Agricultural + Resource Economics
+1173 - Horticulture + Landscape Architecture
+1177 - Agricultural Biology
+1201 - Dean of Business
+1220 - COB Operations
+1260 - COB Academic Support
+1270 - COB Academic Programs
+1271 - Accounting
+1272 - Finance + Real Estate
+1275 - Management
+1276 - Center for Prof Dev + Business Research
+1277 - Computer Information Systems
+1278 - Marketing
+1301 - Dean of Engineering
+1320 - Engineering Research Center
+1370 - Chemical + Biological Engineering
+1371 - Atmospheric Science
+1372 - Civil + Environmental Engineering
+1373 - Electrical + Computer Engineering
+1374 - Mechanical Engineering
+1375 - CIRA
+1376 - School of Biomedical Engineering
+1377 - Systems Engineering
+1401 - Dean of Natural Resources
+1472 - Forest + Rangeland Stewardship
+1474 - Fish, Wildlife + Conservation Biology
+1475 - Colorado Natural Heritage Program
+1476 - Ecosystem Science + Sustainability
+1480 - Human Dimensions of Natural Resources
+1482 - Geosciences
+1484 - Cooperative Fish + Wildlife Research
+1490 - CEMML
+1499 - Natural Resource Ecology Laboratory
+1501 - Dean of Health and Human Sciences
+1570 - Human Development + Family Studies
+1571 - Food Science + Human Nutrition
+1573 - Occupational Therapy
+1574 - Design + Merchandising
+1582 - Health + Exercise Science
+1584 - Construction Management
+1586 - School of Social Work
+1588 - School of Education
+1590 - Institute for the Built Environment
+1595 - Richardson Design Center
+1601 - CVMBS
+1602 - CVMBS Finance + Strategic Services
+1620 - Veterinary Teaching Hospital
+1640 - Diagnostic Lab-Rocky Ford
+1644 - Diagnostic Lab-Fort Collins
+1647 - Diagnostic Lab-Western Slope
+1650 - Veterinary Health System
+1674 - Cell + Molecular Biology Graduate Prog
+1675 - Molecular, Cellular + Init Neurosciences
+1678 - Clinical Sciences
+1680 - Biomedical Sciences
+1681 - Environ + Radiological Health Sciences
+1682 - Microbiology, Immunology + Pathology
+1683 - Center for Environmental Medicine
+1693 - ARBL Equine Reproduction Laboratory
+1701 - Dean of Liberal Arts
+1720 - School of The Arts
+1725 - Arts Management
+1730 - Institute for Research in Social Science
+1770 - Art + Art History
+1771 - Economics
+1773 - English
+1774 - Languages, Literatures + Cultures
+1776 - History
+1778 - School of Music, Theatre + Dance
+1781 - Philosophy
+1782 - Political Science
+1783 - Communication Studies
+1784 - Sociology
+1785 - Journalism + Media Communication
+1787 - Anthropology and Geography
+1790 - Race, Gender, and Ethnic Studies
+1801 - Dean of Natural Sciences
+1802 - Education + Outreach Center
+1870 - Biochemistry + Molecular Biology
+1872 - Chemistry
+1873 - Computer Science
+1874 - Mathematics
+1875 - Physics
+1876 - Psychology
+1877 - Statistics
+1878 - Biology
+2001 - VP Research
+2002 - Sponsored Programs
+2007 - Laboratory Animal Resources
+2010 - Research IT
+2011 - Research Compliance Service
+2012 - One Health Institute
+2015 - Center for Healthy Aging
+2019 - Analytical Resources Core
+2021 - Proteomics + Metabolomics Facility
+2025 - Infectious Disease Research Center
+2026 - CSU Energy Institute
+2027 - Office of Research Collab + Compliance
+3001 - Agricultural Experiment Station
+3002 - Agric Research Development + Educ Center
+3030 - Plant Growth Facility
+3040 - Arkansas Valley Research Center
+3041 - Eastern Colorado Research Center
+3042 - San Juan Basin Research Center
+3043 - San Luis Valley Research Center
+3044 - Plainsman Research Center
+3046 - Western Colorado Research Center
+3050 - Southwestern Colorado Research Center
+4010 - CSU Extension - Front Range Region
+4015 - CSU Extension - Southern Region
+4020 - CSU Extension - Eastern Region
+4025 - CSU Extension - Mountain Region
+4030 - CSU Extension - Western Region
+4035 - CSU Extension Area + County Support
+4040 - CSU Extension - Administration
+4044 - CSU Extension Programs
+4045 - Engagement + Extension Youth Development
+4047 - Extension Community Engagement
+4048 - OEE Extension Centers
+4051 - South Region
+4060 - Expanded Food + Nutrition Education Prog
+5060 - Colorado State Forest Service
+6001 - VP University Operations
+6002 - Risk Management + Insurance
+6003 - Business + Financial Services
+6004 - Human Resources
+6006 - Talent Development
+6008 - AVP Safety + Risk Services
+6009 - Real Estate Office
+6010 - Procurement Services
+6011 - Central Receiving
+6012 - Parking + Transportation Services
+6018 - Employee Support Services
+6019 - Financial System Services
+6021 - Environmental Health Services
+6023 - CSU Police Department
+6024 - Campus Services/Accounts Receivable
+6025 - Marketing + Brand Management
+6026 - Surplus Property
+6027 - Contracting Services
+6028 - Policy + Compliance Office
+6030 - Facilities Management
+6040 - Office of Budgets
+6991 - Acct Pools-Business + Financial Services
+6992 - Accounting Pools-Treasurer
+6993 - Accounting Pools-Payroll
+6994 - Accounting Pools-B+FS Vet Med
+6995 - Accounting Pools-Business + Fin Svcs
+6996 - Accounting Pools-Accounts Receivable
+6997 - Accounting Pools-Accounts Payable
+6999 - Accounting Pools-Plant Funds
+7112 - Constituent + Gift Information
+7114 - Alumni Relations
+7115 - University Development
+7116 - Development + Advancement Information Sv
+7117 - VP University Advancement
+7118 - Univ Advance Finance + Administration
+7119 - Talent Management + Training + Support
+7120 - University Advancement Communications
+7140 - University Advancement Engagement
+8001 - Women + Gender Advocacy Center
+8002 - Student Disability Center
+8003 - Student Legal Services
+8004 - VP Student Affairs Office
+8008 - Career Center
+8010 - Health Network Counseling
+8011 - Orientation + Transition Programs
+8012 - Off-Campus Life
+8013 - Native American Cultural Center
+8015 - Student Resolution Center
+8016 - Black/African American Cultural Center
+8017 - El Centro
+8018 - Asian/Pacific American Cultural Center
+8025 - ASCSU
+8026 - University Ombuds
+8027 - Campus Recreation
+8028 - Pride Resource Center
+8030 - LSC Dining Services
+8031 - Health Network Medical
+8032 - Residence Life
+8033 - Lory Student Center
+8034 - Residential Dining
+8035 - Bookstore
+8036 - Student Organizations
+8037 - Conference + Event Services
+8038 - Student Media
+8040 - Stu Leadership, Involve + Comm Engage
+8041 - Ramcard Office
+8042 - HDS Clearing Account
+8043 - Apartment Life
+8044 - CSU Mountain Campus
+8045 - HDS Administration
+8046 - Housing + Dining Facilities
+8047 - HDS Technology Services
+8048 - Adult Learner + Veteran Services
+8049 - University Housing
+8051 - Student Case Mgt + Referral Coordination
+8052 - Support + Safety Assessment
+8053 - HDS Occupancy & Operations
+8100 - Academic Advancement Center
+8105 - Student-Athlete Support Services
+9001 - Canyon Lakes
+9002 - Larimer County Human Services
+9003 - Front Range Community College
+9004 - Rocky Mountain Bird Observatory
+9005 - Rocky Mountain Research Station
+9006 - Fort Collins Parks + Recreation
+9007 - Educational + Life Training Center
+9008 - USDA Agricultural Research Services
+9009 - Arapahoe/Roosevelt National Forest
+9010 - Larimer Humane Society
+9011 - Sunshine School, Inc
+9012 - Respite Care, Inc
+9013 - Cache la Poudre/Irish Schools
+9014 - Beattie Elementary School
+9015 - Kruse Elementary School
+9016 - Dunn Elementary School
+9017 - Linton Elementary School
+9018 - Eyestone Elementary School
+9019 - US Geological Survey
+9020 - Catholic Community Services Northern Col
+9021 - Children's Clinic
+9022 - Cottonwood Elementary School
+9023 - Consumer Credit Counseling Service
+9024 - Neighbor to Neighbor
+9025 - Lincoln Center
+9026 - Foothills Gateway, Inc
+9027 - Lutheran Family Services
+9028 - Poudre School District Lab
+9029 - US Fish & Wildlife Service
+9030 - Bauder Elementary School
+9031 - Semester at Sea - Inst for Shipboard Ed
+9032 - National Assoc. Interpretation - NAI
+9035 - Red Feather Ranger District
+9038 - Lory State Park
+9039 - United Day Care Center
+9040 - USDA Animal + Plant Health Inspection
+9041 - Sunshine House
+9042 - Laurel Elementary School
+9043 - Boys + Girls Clubs of Larimer County
+9044 - Mosaic
+9047 - Poudre River Public Library District
+9048 - Poudre School District Administration
+9050 - Bennett Elementary School
+9051 - Fort Collins Museum of Discovery
+9052 - Junior Achievement
+9053 - Van Buren Elementary School
+9054 - Olander Elementary School
+9055 - Lopez Elementary School
+9056 - Riffenburgh Elementary School
+9060 - Rancho Vista Equine Therapy Center
+9061 - Partners Larimer County
+9062 - The Family Center
+9063 - Red Cross
+9064 - Centers for Disease Control + Prevention
+9066 - Pioneer Expedition School
+9067 - Preston Junior High School
+9068 - Poudre High School
+9069 - Rocky Mountain High School
+9070 - Early Childhood Center
+9072 - Mountain Prairie Girl Scouts
+9073 - Evenstart Program
+9074 - Fort Collins High School
+9075 - Lincoln Middle School
+9076 - Fort Collins Community Action Network
+9079 - Colorado Parks + Wildlife
+9081 - Touchstone Health Partners
+9082 - Rocky Mountain Student Media Corporation
+9083 - YMCA of Northern Colorado
+9084 - Moore Elementary School
+9085 - Putnam Elementary School
+9086 - United Way of Larimer County
+9087 - Cache La Poudre Elementary School
+9088 - Larimer County Detention Center
+9089 - The Matthews House
+9091 - Social Security Administration
+9093 - Harris Elementary School
+9096 - Turning Point
+9097 - Off-Campus
+EXP1 - Agric Sciences-Agric Experiment Station
+EXP3 - Engineering-Agric Experiment Station
+EXP4 - Natural Resources-Ag Experiment Station
+EXP5 - Health+Human Science-Ag Experiment Stat
+EXP6 - CVMBS-Agricultural Experiment Station
+EXP7 - Liberal Arts-Agric Experiment Station
+EXP8 - Natural Sciences-Ag Experiment Station
+EXP9 - Agricultural Experiment Station
+EXT0 - Information Technology-CSU Extension
+EXT1 - Agricultural Sciences-CSU Extension
+EXT2 - CSU Extension
+EXT3 - Engineering-CSU Extension
+EXT4 - Natural Resources-CSU Extension
+EXT5 - Health+Human Science-CSU Extension
+EXT6 - CVMBS-CSU Extension
+EXT7 - University Operations-CSU Extension
+EXT9 - Agric Experiment Station-CSU Extension
+I001 - Intuition
+P001 - PRESIDENTS OFFICE
+P003 - VISION 2028
+P005 - FOUNDATION
+P010 - MARKETING, COMMUNICATIONS & COMMUNITY RE
+P015 - UNIVERSITY RELATIONS
+P020 - COMMUNICATION SERVICES
+P025 - PUBLICATIONS
+P030 - PRINT SHOP/COPY CENTER
+P035 - OFFICE OF INSTITUTIONAL EQUITY
+P040 - INSTITUTIONAL RESEARCH AND ANALYSIS
+P045 - ATHLETICS
+P050 - ATHLETIC TRAINING
+P100 - PROVOSTS OFFICE
+P101 - LIBRARY SERVICES
+P102 - HONORS PROGRAM
+P103 - Research and Sponsored Programs
+P104 - INFORMATION TECHNOLOGY SERVICES
+P105 - INSTITUTE OF CANNABIS RESEARCH
+P106 - DISABILITY RESOURCE OFFICE
+P107 - EXTENDED STUDIES
+P108 - CAREER CENTER
+P109 - PRESIDENTS LEADERSHIP PROGRAM
+P110 - PROPEL
+P111 - REGIONAL ACCESS TO GRADUATE EDUCATION
+P112 - INTERDISCIPLINARY STUDIES
+P113 - So Colo Inst of Trans Tech (SCITT
+P150 - HASAN SCHOOL OF BUSINESS
+P151 - Accounting/Econ/Finance
+P152 - Management
+P153 - MARKETING
+P154 - COMPUTER INFORMATION SYSTEMS
+P179 - HEALTH SCIENCE
+P180 - COLLEGE OF HEALTH, EDUCATION, NURSING
+P181 - ENGINEERING
+P182 - APPLIED SCIENCE AND ENGINEERING TECHNOLO
+P183 - CIVIL ENGINEERING TECHNOLOGY
+P184 - CONSTRUCTION MANAGEMENT
+P185 - AUTOMOTIVE INDUSTRY MANAGEMENT
+P186 - EXER SCIENCE PHYSICAL ED RECREATION
+P187 - RECREATION
+P188 - NURSING
+P189 - TEACHER EDUCATION PROGRAM
+P210 - COLLEGE OF HUMANITIES AND SOCIAL SCIENCE
+P211 - ART
+P212 - ENGLISH/FOREIGN LANGUAGES
+P213 - HIST/CHIC STUD/PHIL/POL SCIENCE
+P214 - MASS COMMUNICATIONS AND CTR NEW MEDIA
+P215 - MUSIC
+P216 - PSYCHOLOGY
+P217 - MILITARY SCIENCE AND LEADERSHIP
+P218 - SOCIOLOGY/ANTHROPOLOGY
+P219 - SOCIAL WORK
+P220 - University Studies
+P221 - CHICANO STUDIES
+P222 - WOMENS STUDIES
+P223 - RADIO STATION (FM)
+P224 - SPEECH COMMUNICATION
+P225 - CSU TODAY
+P226 - CENTER FOR TEACHING AND LEARNING
+P240 - COLLEGE OF STEM-SCIENCE, TECH, ENG, MATH
+P241 - BIOLOGY
+P242 - CHEMISTRY
+P243 - MATHEMATICS
+P244 - PHYSICS/PHYSICAL SCIENCE
+P245 - WANR Program
+P300 - FINANCE AND ADMINISTRATION
+P301 - HUMAN RESOURCES
+P302 - BUSINESS FINANCIAL SERVICES
+P303 - ACCOUNTING OFFICE
+P304 - PURCHASING
+P305 - SAFETY OFFICE
+P306 - PHYSICAL PLANT OFFICE
+P307 - MAIL SERVICES
+P308 - SHIPPING AND RECEIVING
+P309 - FACILITIES PLANNING AND CONSTRUCTION
+P310 - MAINTENANCE GROUNDS
+P311 - MAINTENANCE BUILDING/EQUIPMENT
+P312 - CUSTODIAL SERVICES
+P313 - PUEBLO COUNTY SHERIFFS OFFICE
+P314 - STUDENT CENTER
+P315 - BOOKSTORE
+P316 - FOOD SERVICE
+P317 - PARKING
+P318 - GRANTS AND ACQUISITIONS
+P500 - Enrollment management
+P501 - ADMISSIONS
+P502 - BANNER
+P503 - STUDENT FINANCIAL SERVICES
+P504 - REGISTRAR'S OFFICE
+P505 - INTERNATIONAL PROGRAMS
+P506 - CENTER FOR ACADEMIC ENRICHMENT (CAE)
+P507 - STUDENT AFFAIRS
+P508 - RESIDENCE LIFE AND HOUSING
+P509 - STUDENT COUNSELING CENTER
+P510 - ASSOCIATED STUDENT GOVERNMENT
+P511 - STUDENT ENGAGEMENT AND LEADERSHIP
+P512 - STUDENT RECREATION CENTER
+P513 - STUDENT HEALTH SERVICES
+P514 - TRIO PROGRAMS
+P515 - COLLEGE ASSISTANCE MIGRANT PROGRAM
+P516 - STUDENT SUPPORT SERVICES
+P517 - UPWARD BOUND
+P518 - VETERANS UPWARD BOUND
+P519 - SOUTHERN CO EDUCATIONAL OPPORTUNITY CTR
+P520 - Ctr for Intl Prgms & Inclusive Exlnce
+P521 - ALUMNI AND DEVELOPMENT
+P522 - INTERNATIONAL STUDENT SERVICES
+P523 - NATIONAL STUDENT EXCHANGE
+P524 - Military and Veteran Success Center
+P995 - Acct Pools-Business+Financial ServicesPB

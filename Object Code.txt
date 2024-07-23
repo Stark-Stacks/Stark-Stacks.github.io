@@ -1,0 +1,217 @@
+5000 - Budget Faculty Salary
+5008 - Budget Faculty TBA
+5009 - Budget Faculty Fringe
+5011 - Faculty Salary
+5012 - Faculty Fringe
+5021 - Adjunct Faculty Salary
+5022 - Adjunct Faculty Fringe
+5051 - Faculty Salary Supplemental Pay
+5052 - Faculty Fringe Supplemental Pay
+5100 - Budget Admin Professional Salary
+5108 - Budget Admin Professional TBA
+5109 - Budget Admin Professional Fringe
+5111 - Admin Professional Salary
+5112 - Admin Professional Fringe
+5113 - Admin Professional Overtime
+5114 - Admin Professional OT Fringe
+5115 - Admin Professional-Non Base Build Salary
+5116 - Admin Professional-Non Base Build Fringe
+5131 - Admin Pro Fringe-Shift Differential
+5132 - Admin Pro Salary-Shift Differential
+5151 - Admin Pro Salary-Supplemental Pay
+5152 - Admin Pro Fringe-Supplemental Pay
+5153 - Admin Pro Salary-Stipend Pay
+5154 - Admin Pro Fringe-Stipend Pay
+5181 - Admin Pro Salary-Post Doc Second Year
+5182 - Admin Pro Fringe-Post Doc Second Year
+5183 - Admin Pro OT Salary-Post Doc 2nd Year
+5184 - Admin Pro OT Fringe-Post Doc 2nd Year
+5200 - Budget Federal Faculty Salary
+5208 - Budget Federal Faculty TBA
+5209 - Budget Federal Faculty Fringe
+5211 - Federal Faculty Salary
+5212 - Federal Faculty Benefits Pay
+5221 - Federal Faculty Salary Supplmntl Pay
+5250 - Budget Federal Admin Professional Salary
+5251 - Federal Admin Pro Salary-Supplmntl Pay
+5258 - Budget Federal Admin Professional TBA
+5259 - Budget Federal Admin Professional Fringe
+5261 - Federal Admin Professional Salary
+5262 - Federal Admin Professional Fringe
+5300 - Budget Grad Research Assistant Salary
+5309 - Budget Grad Research Assistant Fringe
+5311 - Grad Research Assistant Salary
+5312 - Grad Research Assistant Fringe
+5313 - GRA Salary-Supplemental Pay
+5314 - GRA Fringe-Supplemental Pay
+5320 - Budget Grad Support Assistant Salary
+5329 - Budget Grad Support Assistant Fringe
+5331 - Grad Support Assistant Salary
+5332 - Grad Support Assistant Fringe
+5333 - GSA Salary-Supplemental Pay
+5334 - GSA Fringe-Supplemental Pay
+5340 - Budget Grad Teaching Assistant Salary
+5349 - Budget Grad Teaching Assistant Fringe
+5351 - Grad Teaching Assistant Salary
+5352 - Grad Teaching Assistant Fringe
+5353 - GTA Salary-Supplemental Pay
+5354 - GTA Fringe-Supplemental Pay
+5360 - Budget Grad Vet Resident Salary
+5369 - Budget Grad Vet Resident Fringe
+5371 - Grad Vet Resident Salary
+5372 - Grad Vet Resident Fringe
+5380 - Budget GRA Predoc Fellows Salary
+5381 - GRA Predoc Fellows Salary
+5382 - GRA Predoc Fellows Fringe
+5389 - Budget GRA Predoc Fellows Fringe
+5400 - Budget State Classified Salary
+5408 - Budget State Classified TBA
+5409 - Budget State Classified Fringe
+5411 - State Classified Salary
+5412 - State Classified Fringe
+5413 - State Classified-Non Base Build Salary
+5414 - State Classified-Non Base Build Fringe
+5415 - State Classified Salary-Hourly Accruals
+5416 - State Classified Fringe-Hourly Accruals
+5421 - State Classified Salary-Overtime
+5422 - State Classified Fringe-Overtime
+5431 - State Classified Salary-Shift Differentl
+5432 - State Classified Fringe-Shift Differentl
+5441 - State Classified Salary-Miscellaneous
+5442 - State Classified Fringe-Miscellaneous
+5443 - State Class Hourly-Non Base Build Salary
+5444 - State Class Hourly-Non Base Build Fringe
+5451 - State Classified Salary-Supplemental Pay
+5452 - State Classified Fringe-Supplemental Pay
+5500 - Budget 1st Year Temp Faculty Salary
+5501 - 1st Year Temp Faculty Salary
+5502 - 1st Year Temp Faculty Fringe
+5508 - Budget 1st Year Temp Faculty TBA
+5509 - Budget 1st Year Temp Faculty Fringe
+5533 - 1st Yr Temp Faculty Salary-Supplmntl Pay
+5534 - 1st Yr Temp Faculty Fringe-Supplmntl Pay
+5540 - Budget 1st Year Temp Admin Pro Salary
+5541 - 1st Year Temp Admin Professional Salary
+5542 - 1st Year Temp Admin Professional Fringe
+5545 - Temp Part-Time Admin Professional Salary
+5546 - Temp Part-Time Admin Professional Fringe
+5548 - Budget 1st Year Temp Admin Pro TBA
+5549 - Budget 1st Year Temp Admin Pro Fringe
+5550 - Budget 1st Year Post Doc Fellow Salary
+5551 - 1st Year Post Doctoral Fellow Salary
+5552 - 1st Year Temp Post Doc Fellow Fringe
+5553 - 1st Yr Post Doc Fellow Overtime Salary
+5554 - 1st Yr Post Doc Fellow Overtime Fringe
+5558 - Budget 1st Year Post Doc Fellow TBA
+5559 - Budget 1st Year Post Doc Fellow Fringe
+5560 - Budget Temp Support Staff Salary
+5561 - Temp Support Staff Salary Student Hourly
+5562 - Temp Support Staff Fringe Student Hourly
+5569 - Budget Temp Support Staff Fringe
+5580 - Budget Temp Supprt Non Student Hourly
+5581 - Non-Student Hourly Salary
+5582 - Non-Student Hourly Fringe
+5583 - Non-Student Hourly Overtime
+5584 - Non-Student Hourly Overtime Fringe
+5585 - Non-Student Hourly Salary-Accruals
+5586 - Non-Student Hourly Fringe-Accruals
+5589 - Budget Temp Supprt Non Stu Hrly Fringe
+5600 - Budget Student Hourly Salary
+5609 - Budget Student Hourly Fringe
+5611 - Student Hourly Salary
+5612 - Student Hourly Fringe
+5613 - Student Hourly Salary Overtime
+5614 - Student Hourly Salary Overtime Fringe
+5615 - Student Salary Hourly-Accruals
+5616 - Student Fringe Hourly-Accruals
+5617 - Student Hourly Salary Overtime
+5618 - Student Fringe Hourly OT
+5621 - Firefighter Overtime Salary
+5622 - Firefighter Overtime Fringe
+5650 - Budget Workstudy Salary
+5651 - Workstudy Salary
+5652 - Work Study Salary-Institutional No Need
+5653 - Work Study Salary-Federal
+5654 - Work Study Salary-Federal Off Campus
+5659 - Workstudy Fringe
+5700 - Budget Miscellaneous Salary
+5701 - Faculty Annual Leave Termination
+5703 - Admin Pro Annual Leave Termination
+5704 - State Classified Annl Leave Termination
+5705 - Award Expense (via Payroll)
+5706 - Clothing/Uniform Allowance
+5707 - Signing/Retention Bonus
+5709 - Faculty/Nonclassified STD Allowance
+5710 - Housing
+5711 - Indirect Tips
+5712 - Commissions
+5713 - Duty Pay
+5714 - Miscellaneous Pay
+5715 - Moving Taxable
+5716 - Moving Non Taxable
+5717 - Deferred Compensation
+5718 - Fellowship Grant Trainee
+5719 - Budget Miscellaneous Fringe
+5721 - State Classified Sick Leave Termination
+5722 - Faculty Sick Leave Termination
+5723 - Admin Pro Sick Leave Termination
+5724 - State Classified Retirement Incentive Pa
+5725 - AP/FAC Retirement Incentive Pay
+5727 - Childcare Reimbursement
+5734 - Faculty Transition Retired Benefit
+5736 - Graduate Student Medical Subsidy
+5737 - Student Award Expense
+5738 - Special Award Expense
+5741 - PERA Qualified Replcmnt Bnft Prgrm Pymnt
+5752 - Cooperative Extension Other Fringe
+5753 - Cooperative Extension Life Insurance
+5754 - Cooperative Extension Health Insurance
+5756 - Cooperative Extension Worker's Comp
+5761 - Workers Compensation Salary Reimbrsmnts
+5762 - GRA Tuition Remission
+5763 - GTA Tuition Remission - Resident
+5764 - GTA Tuition Remission - Nonresident
+5765 - GSA Tuition Remission - Resident
+5766 - GSA Tuition Nonresident Expense
+5767 - GA Fee Remission
+5768 - Other Emp Tuition Remission - Non-GA
+5769 - Other Emp Fee Remission
+5790 - Short-Term Disability Pay
+5791 - FAMLI Leave Pay
+5799 - Salary Reimbursements
+5800 - Fringe Benefits
+5802 - Continuing Education Study Privilege
+5803 - PERA Faculty Retirement Health Care Prem
+5804 - Medicare Faculty Retire Health Care Prem
+5805 - Survivor Retirement Health Care Premium
+5806 - Optional Retirement Plan
+5807 - Faculty/Nonclassified LTD Allowance
+5808 - Optnl Retire Plan-Retire HealthCare Prem
+5809 - DCP VRIP Enhanced Benefit Plan
+5810 - Fringe Reimburse-Business+Financial Serv
+5811 - Fringe Pool Contra
+5812 - PERA Amortization Equalization Adjust
+5813 - PERA Retired Workers Match
+5901 - Compensated Absence/Annual Leave-IN
+5902 - Compensated Absence/Annual Leave-RS
+5903 - Compensated Absence/Annual Leave-PS
+5904 - Compensated Absence/Annual Leave-AS
+5905 - Compensated Absence/Annual Leave-SS
+5906 - Compensated Absence/Annual Leave-IS
+5907 - Compensated Absence/Annual Leave-OP
+5908 - Compensated Absence/Annual Leave-SF
+5909 - Compensated Absence/Annual Leave-AE
+5911 - Compensated Absence/Sick Leave-IN
+5912 - Compensated Absence/Sick Leave-RS
+5913 - Compensated Absence/Sick Leave-PS
+5914 - Compensated Absence/Sick Leave-AS
+5915 - Compensated Absence/Sick Leave-SS
+5916 - Compensated Absence/Sick Leave-IS
+5917 - Compensated Absence/Sick Leave-OP
+5918 - Compensated Absence/Sick Leave-SF
+5919 - Compensated Absence/Sick Leave-AE
+5990 - Non-Resident Work Study Contribution
+5991 - State Work Study-Need
+5992 - State Work Study-No Need
+
+
